@@ -16,42 +16,41 @@ import co.edu.uniandes.shamp.util.exception.SystemException;
 @ApplicationScoped
 public class UserRepository {
 
-    @Inject
-    private EntityManager em;
+  @Inject
+  private EntityManager em;
 
-    @Inject
-    private Logger logger;
+  @Inject
+  private Logger logger;
 
-    public User findByUsername(final String username) {
-        try {
-            return this.em.createNamedQuery(User.FIND_BY_USERNAME, User.class)
-                    .setParameter("username", username).getSingleResult();
-        } catch (final NoResultException nre) {
-            this.logger.log(Level.WARNING, "NOT FOUND: username " + username);
-            return null;
-        }
+  public User findByUsername(final String username) {
+    try {
+      return this.em.createNamedQuery(User.FIND_BY_USERNAME, User.class)
+          .setParameter("username", username).getSingleResult();
+    } catch (final NoResultException nre) {
+      this.logger.log(Level.WARNING, "NOT FOUND: username " + username);
+      return null;
     }
+  }
 
-    public User findByUsernameAndPassword(final String username, final String password)
-            throws BusinessException {
-        try {
-            return this.em.createNamedQuery(User.FIND_BY_USERNAME_AND_PASSWORD, User.class)
-                    .setParameter("username", username).setParameter("password", password)
-                    .getSingleResult();
-        } catch (final NoResultException nre) {
-            this.logger.log(Level.WARNING, "UNAUTHORIZED: " + username + " " + password);
-            throw new BusinessException("Nombre de usuario o contraseña incorrectos",
-                    "UNAUTHORIZED");
-        }
+  public User findByUsernameAndPassword(final String username, final String password)
+      throws BusinessException {
+    try {
+      return this.em.createNamedQuery(User.FIND_BY_USERNAME_AND_PASSWORD, User.class)
+          .setParameter("username", username).setParameter("password", password).getSingleResult();
+    } catch (final NoResultException nre) {
+      this.logger.log(Level.WARNING, "UNAUTHORIZED: " + username + " " + password);
+      throw new BusinessException("Nombre de usuario o contraseña incorrectos",
+          "UNAUTHORIZED" + nre);
     }
+  }
 
-    public void persist(final User user) {
-        try {
-            this.em.persist(user);
-        } catch (final PersistenceException pe) {
-            this.logger.log(Level.SEVERE, "Error to persist user", pe);
-            throw new SystemException("Error to persist user");
-        }
+  public void persist(final User user) {
+    try {
+      this.em.persist(user);
+    } catch (final PersistenceException pe) {
+      this.logger.log(Level.SEVERE, "Error to persist user", pe);
+      throw new SystemException("Error to persist user");
     }
+  }
 
 }

@@ -27,48 +27,47 @@ import co.edu.uniandes.shamp.util.exception.SystemException;
 @RequestScoped
 public class AuthRestService extends RestService {
 
-    @Inject
-    private Logger logger;
+  @Inject
+  private Logger logger;
 
-    @Inject
-    private UserService userService;
+  @Inject
+  private UserService userService;
 
-    @POST
-    @PermitAll
-    @Path("login")
-    public Response login(@NotNull final User user, @Context final HttpServletRequest request)
-            throws BusinessException {
-        try {
-            final Session session = this.userService.login(user);
-            AuthUtils.createToken(request.getRemoteHost(), session);
-            session.setUser(null);
-            final Response response = Response.status(Status.OK).entity(session).build();
-            return response;
-        } catch (BusinessException | SystemException ex) {
-            throw ex;
-        } catch (final Exception ex) {
-            this.logger.log(Level.SEVERE, ex.getMessage(), ex);
-            throw new SystemException();
-        }
+  @POST
+  @PermitAll
+  @Path("login")
+  public Response login(@NotNull final User user, @Context final HttpServletRequest request)
+      throws BusinessException {
+    try {
+      final Session session = this.userService.login(user);
+      AuthUtils.createToken(request.getRemoteHost(), session);
+      final Response response = Response.status(Status.OK).entity(session).build();
+      return response;
+    } catch (BusinessException | SystemException ex) {
+      throw ex;
+    } catch (final Exception ex) {
+      this.logger.log(Level.SEVERE, ex.getMessage(), ex);
+      throw new SystemException();
     }
+  }
 
-    @POST
-    @PermitAll
-    @Path("register")
-    public Response register(@Valid @NotNull final User user) throws BusinessException {
-        try {
-            this.userService.register(user);
-            final Successful successful = new Successful();
-            successful.setMessage("User created");
-            successful.setTitle("User created");
-            final Response response = Response.status(Status.OK).entity(successful).build();
-            return response;
-        } catch (BusinessException | SystemException ex) {
-            throw ex;
-        } catch (final Exception ex) {
-            this.logger.log(Level.SEVERE, ex.getMessage(), ex);
-            throw new SystemException();
-        }
+  @POST
+  @PermitAll
+  @Path("register")
+  public Response register(@Valid @NotNull final User user) throws BusinessException {
+    try {
+      this.userService.register(user);
+      final Successful successful = new Successful();
+      successful.setMessage("User created");
+      successful.setTitle("User created");
+      final Response response = Response.status(Status.OK).entity(successful).build();
+      return response;
+    } catch (BusinessException | SystemException ex) {
+      throw ex;
+    } catch (final Exception ex) {
+      this.logger.log(Level.SEVERE, ex.getMessage(), ex);
+      throw new SystemException();
     }
+  }
 
 }

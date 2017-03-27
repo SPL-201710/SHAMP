@@ -22,14 +22,14 @@
     xsi:schemaLocation="http://www.jboss.org/ironjacamar/schema http://docs.jboss.org/ironjacamar/schema/datasources_1_0.xsd">
    <!-- The datasource is bound into JNDI at this location. We reference 
       this in META-INF/persistence.xml -->
-    <datasource jndi-name="java:jboss/datasources/shampDS" pool-name="shamp"
-        enabled="true" use-java-context="true">
-        <connection-url>jdbc:h2:mem:shamp;DB_CLOSE_ON_EXIT=FALSE;DB_CLOSE_DELAY=-1</connection-url>
-        <driver>h2</driver>
-        <security>
-            <user-name>sa</user-name>
-            <password>sa</password>
-        </security>
-    </datasource>
+    <datasource jndi-name="java:jboss/datasources/shampDS" pool-name="shamp" enabled="true" use-java-context="true">
+                    <connection-url>jdbc:mysql://bd-mysql.cs58hd8wnzzs.us-west-2.rds.amazonaws.com/bd_mysql</connection-url>
+                    <driver-class>com.mysql.jdbc.Driver</driver-class>
+                    <driver>mysql</driver>
+                    <security>
+                        <user-name>bd_mysql</user-name>
+                        <password>bd_mysql.5.6</password>
+                    </security>
+                </datasource>
 </datasources>
  
