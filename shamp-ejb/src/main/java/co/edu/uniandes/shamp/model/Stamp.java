@@ -130,5 +130,4 @@ public class Stamp extends Entity {
     this.user = user;
   }
 
-
 }
