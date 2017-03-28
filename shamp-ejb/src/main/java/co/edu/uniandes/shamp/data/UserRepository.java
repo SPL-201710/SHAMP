@@ -44,6 +44,17 @@ public class UserRepository {
     }
   }
 
+  public User findId(final int userId) {
+    try {
+      return this.em.createNamedQuery(User.FIND_BY_ID, User.class).setParameter("userId", userId)
+          .getSingleResult();
+
+    } catch (final NoResultException nre) {
+      this.logger.log(Level.WARNING, "problemas al listar todas las estampas");
+      return null;
+    }
+  }
+
   public void persist(final User user) {
     try {
       this.em.persist(user);

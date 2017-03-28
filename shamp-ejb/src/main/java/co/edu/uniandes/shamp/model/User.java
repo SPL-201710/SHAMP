@@ -16,14 +16,19 @@ import org.hibernate.validator.constraints.NotEmpty;
     @NamedQuery(name = User.FIND_BY_USERNAME,
         query = "select u from User u where u.username = :username"),
     @NamedQuery(name = User.FIND_BY_USERNAME_AND_PASSWORD,
-        query = "select u from User u where u.username = :username and u.password = :password"),})
+        query = "select u from User u where u.username = :username and u.password = :password"),
+    @NamedQuery(name = User.FIND_BY_ID, query = "select u from User u where u.id = :userId"),})
 @Table(name = "users")
 public class User extends Entity {
+
+  public static final String FIND_BY_ID = PREFIX + "User.findByID";
 
   public static final String FIND_BY_USERNAME = PREFIX + "User.findByUsername";
 
   public static final String FIND_BY_USERNAME_AND_PASSWORD =
       PREFIX + "User.findByUsernameAndPassword";
+
+
 
   @Column(name = "user_mail", nullable = false)
   private String email;

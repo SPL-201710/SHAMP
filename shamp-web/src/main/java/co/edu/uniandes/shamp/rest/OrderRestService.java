@@ -23,30 +23,30 @@ import co.edu.uniandes.shamp.util.exception.SystemException;
 @RequestScoped
 public class OrderRestService extends RestService {
 
-	@Inject
-	private Logger logger;
+  @Inject
+  private Logger logger;
 
-	@Inject
-	private OrderService service;
+  @Inject
+  private OrderService service;
 
-	@POST
-	@PermitAll
-	@Path("/register")
-	public Response register(@Valid @NotNull final OrderDto orderDto) throws BusinessException {
-		try {
-			this.service.register(orderDto);
-			final Successful successful = new Successful();
-			successful.setMessage("Order created");
-			successful.setTitle("Order created");
-			final Response response = Response.status(Status.OK).entity(successful).build();
-			return response;
-		} catch (BusinessException | SystemException ex) {
-			throw ex;
-		} catch (final Exception ex) {
-			this.logger.log(Level.SEVERE, ex.getMessage(), ex);
-			throw new SystemException();
-		}
-	}
+
+  @POST
+  @PermitAll
+  @Path("/register")
+  public Response register(@Valid @NotNull final OrderDto orderDto) throws BusinessException {
+    try {
+      final Successful successful = this.createSuccessful("", this.service.register(orderDto));;
+      successful.setMessage("Order created");
+      successful.setTitle("Order created");
+      final Response response = Response.status(Status.OK).entity(successful).build();
+      return response;
+    } catch (BusinessException | SystemException ex) {
+      throw ex;
+    } catch (final Exception ex) {
+      this.logger.log(Level.SEVERE, ex.getMessage(), ex);
+      throw new SystemException();
+    }
+  }
 
 }
 
