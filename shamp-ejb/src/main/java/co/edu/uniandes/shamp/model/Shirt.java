@@ -1,5 +1,7 @@
 package co.edu.uniandes.shamp.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,101 +14,112 @@ import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 
 @javax.persistence.Entity
 @NamedQueries({@NamedQuery(name = Shirt.FIND_ALL,
-    query = "select e from Shirt e where e.active = true order by e.id desc")})
+query = "select e from Shirt e where e.active = true order by e.id desc")})
 @Table(name = "shirt")
 public class Shirt extends Entity {
 
-  public static final String FIND_ALL = PREFIX + "Shirt.findALL";
+	public static final String FIND_ALL = PREFIX + "Shirt.findALL";
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "shirt_id", unique = true, nullable = false)
-  private Integer id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "shirt_id", unique = true, nullable = false)
+	private Integer id;
 
-  @NotEmpty
-  @Column(name = "shirt_color", nullable = false)
-  private String shirtColor;
+	@NotEmpty
+	@Column(name = "shirt_color", nullable = false)
+	private String shirtColor;
 
-  @NotEmpty
-  @Column(name = "shirt_large_image_path", nullable = false)
-  private String shirtLargeImagePath;
+	@NotEmpty
+	@Column(name = "shirt_large_image_path", nullable = false)
+	private String shirtLargeImagePath;
 
-  @NotEmpty
-  @Column(name = "shirt_sex", nullable = false)
-  private String shirtSex;
+	@NotEmpty
+	@Column(name = "shirt_sex", nullable = false)
+	private String shirtSex;
 
-  @NotEmpty
-  @Column(name = "shirt_size", nullable = false)
-  private String shirtSize;
+	@NotEmpty
+	@Column(name = "shirt_size", nullable = false)
+	private String shirtSize;
 
-  @NotEmpty
-  @Column(name = "shirt_small_image_path", nullable = false)
-  private String shirtSmallImagePath;
+	@NotEmpty
+	@Column(name = "shirt_small_image_path", nullable = false)
+	private String shirtSmallImagePath;
 
-  @JsonIgnore
-  @ManyToOne
-  @JoinColumn(name = "user_id")
-  private User user;
+	@NotEmpty
+	@Column(name = "shirt_price", nullable = false)
+	private String shirtPrice;
 
-  public Integer getId() {
-    return this.id;
-  }
+	@JsonIgnore
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	private User user;
 
-  public String getShirtColor() {
-    return this.shirtColor;
-  }
+	public Integer getId() {
+		return this.id;
+	}
 
-  public String getShirtLargeImagePath() {
-    return this.shirtLargeImagePath;
-  }
+	public String getShirtColor() {
+		return this.shirtColor;
+	}
 
-  public String getShirtSex() {
-    return this.shirtSex;
-  }
+	public String getShirtLargeImagePath() {
+		return this.shirtLargeImagePath;
+	}
 
-  public String getShirtSize() {
-    return this.shirtSize;
-  }
+	public String getShirtSex() {
+		return this.shirtSex;
+	}
 
-  public String getShirtSmallImagePath() {
-    return this.shirtSmallImagePath;
-  }
+	public String getShirtSize() {
+		return this.shirtSize;
+	}
 
-  public User getUser() {
-    return this.user;
-  }
+	public String getShirtSmallImagePath() {
+		return this.shirtSmallImagePath;
+	}
 
-  public void setId(Integer id) {
-    this.id = id;
-  }
+	public User getUser() {
+		return this.user;
+	}
 
-  public void setShirtColor(String shirtColor) {
-    this.shirtColor = shirtColor;
-  }
+	public void setId(final Integer id) {
+		this.id = id;
+	}
 
-  public void setShirtLargeImagePath(String shirtLargeImagePath) {
-    this.shirtLargeImagePath = shirtLargeImagePath;
-  }
+	public void setShirtColor(final String shirtColor) {
+		this.shirtColor = shirtColor;
+	}
 
-  public void setShirtSex(String shirtSex) {
-    this.shirtSex = shirtSex;
-  }
+	public void setShirtLargeImagePath(final String shirtLargeImagePath) {
+		this.shirtLargeImagePath = shirtLargeImagePath;
+	}
 
-  public void setShirtSize(String shirtSize) {
-    this.shirtSize = shirtSize;
-  }
+	public void setShirtSex(final String shirtSex) {
+		this.shirtSex = shirtSex;
+	}
 
-  public void setShirtSmallImagePath(String shirtSmallImagePath) {
-    this.shirtSmallImagePath = shirtSmallImagePath;
-  }
+	public void setShirtSize(final String shirtSize) {
+		this.shirtSize = shirtSize;
+	}
 
-  public void setUser(User user) {
-    this.user = user;
-  }
+	public void setShirtSmallImagePath(final String shirtSmallImagePath) {
+		this.shirtSmallImagePath = shirtSmallImagePath;
+	}
+
+	public void setUser(final User user) {
+		this.user = user;
+	}
+
+	public String getShirtPrice() {
+		return this.shirtPrice;
+	}
+
+	public void setShirtPrice(final String shirtPrice) {
+		this.shirtPrice = shirtPrice;
+	}
+
 }
 
