@@ -2,7 +2,6 @@ package co.edu.uniandes.shamp.model;
 
 
 import javax.persistence.Column;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,7 +21,7 @@ public class Stamp extends Entity {
 
   public static final String FIND_ALL = PREFIX + "Stamp.findALL";
 
-  @ManyToOne(fetch = FetchType.LAZY)
+  @ManyToOne
   @JoinColumn(name = "category_id")
   private Category category;
 
