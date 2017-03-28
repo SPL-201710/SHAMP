@@ -15,119 +15,122 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 @javax.persistence.Entity
 @NamedQueries({@NamedQuery(name = Stamp.FIND_ALL,
-    query = "select e from Stamp e where e.active = true order by e.id desc")})
+query = "select e from Stamp e where e.active = true order by e.id desc"),
+	@NamedQuery(name = Stamp.FIND_BY_ID, query = "select e from Stamp e where e.active = true and e.id = :stampId order by e.id desc"), })
 @Table(name = "stamps")
 public class Stamp extends Entity {
 
-  public static final String FIND_ALL = PREFIX + "Stamp.findALL";
+	public static final String FIND_ALL = PREFIX + "Stamp.findALL";
 
-  @ManyToOne
-  @JoinColumn(name = "category_id")
-  private Category category;
+	public static final String FIND_BY_ID = PREFIX + "Stamp.findById";
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "stamp_id", unique = true, nullable = false)
-  private Integer id;
+	@ManyToOne
+	@JoinColumn(name = "category_id")
+	private Category category;
 
-  @NotEmpty
-  @Column(name = "stamp_large_image_path", nullable = false)
-  private String stampLargeImagePath;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "stamp_id", unique = true, nullable = false)
+	private Integer id;
 
-  @NotEmpty
-  @Column(name = "stamp_long_description", nullable = false)
-  private String stampLongDescription;
+	@NotEmpty
+	@Column(name = "stamp_large_image_path", nullable = false)
+	private String stampLargeImagePath;
 
-  @NotEmpty
-  @Column(name = "stamp_name", nullable = false)
-  private String stampName;
+	@NotEmpty
+	@Column(name = "stamp_long_description", nullable = false)
+	private String stampLongDescription;
 
-  @NotEmpty
-  @Column(name = "stamp_price", nullable = false)
-  private String stampPrice;
+	@NotEmpty
+	@Column(name = "stamp_name", nullable = false)
+	private String stampName;
 
-  @NotEmpty
-  @Column(name = "stamp_short_description", nullable = false)
-  private String stampShortDescription;
+	@NotEmpty
+	@Column(name = "stamp_price", nullable = false)
+	private String stampPrice;
 
-  @NotEmpty
-  @Column(name = "stamp_small_image_path", nullable = false)
-  private String stampSmallImagePath;
+	@NotEmpty
+	@Column(name = "stamp_short_description", nullable = false)
+	private String stampShortDescription;
 
-  @ManyToOne
-  @JoinColumn(name = "user_id")
-  private User user;
+	@NotEmpty
+	@Column(name = "stamp_small_image_path", nullable = false)
+	private String stampSmallImagePath;
 
-  public Category getCategory() {
-    return this.category;
-  }
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	private User user;
 
-  public Integer getId() {
-    return this.id;
-  }
+	public Category getCategory() {
+		return this.category;
+	}
 
-  public String getStampLargeImagePath() {
-    return this.stampLargeImagePath;
-  }
+	public Integer getId() {
+		return this.id;
+	}
 
-  public String getStampLongDescription() {
-    return this.stampLongDescription;
-  }
+	public String getStampLargeImagePath() {
+		return this.stampLargeImagePath;
+	}
 
-  public String getStampName() {
-    return this.stampName;
-  }
+	public String getStampLongDescription() {
+		return this.stampLongDescription;
+	}
 
-  public String getStampPrice() {
-    return this.stampPrice;
-  }
+	public String getStampName() {
+		return this.stampName;
+	}
 
-  public String getStampShortDescription() {
-    return this.stampShortDescription;
-  }
+	public String getStampPrice() {
+		return this.stampPrice;
+	}
 
-  public String getStampSmallImagePath() {
-    return this.stampSmallImagePath;
-  }
+	public String getStampShortDescription() {
+		return this.stampShortDescription;
+	}
 
-  public User getUser() {
-    return this.user;
-  }
+	public String getStampSmallImagePath() {
+		return this.stampSmallImagePath;
+	}
 
-  public void setCategory(Category category) {
-    this.category = category;
-  }
+	public User getUser() {
+		return this.user;
+	}
 
-  public void setId(Integer id) {
-    this.id = id;
-  }
+	public void setCategory(final Category category) {
+		this.category = category;
+	}
 
-  public void setStampLargeImagePath(String stampLargeImagePath) {
-    this.stampLargeImagePath = stampLargeImagePath;
-  }
+	public void setId(final Integer id) {
+		this.id = id;
+	}
 
-  public void setStampLongDescription(String stampLongDescription) {
-    this.stampLongDescription = stampLongDescription;
-  }
+	public void setStampLargeImagePath(final String stampLargeImagePath) {
+		this.stampLargeImagePath = stampLargeImagePath;
+	}
 
-  public void setStampName(String stampName) {
-    this.stampName = stampName;
-  }
+	public void setStampLongDescription(final String stampLongDescription) {
+		this.stampLongDescription = stampLongDescription;
+	}
 
-  public void setStampPrice(String stampPrice) {
-    this.stampPrice = stampPrice;
-  }
+	public void setStampName(final String stampName) {
+		this.stampName = stampName;
+	}
 
-  public void setStampShortDescription(String stampShortDescription) {
-    this.stampShortDescription = stampShortDescription;
-  }
+	public void setStampPrice(final String stampPrice) {
+		this.stampPrice = stampPrice;
+	}
 
-  public void setStampSmallImagePath(String stampSmallImagePath) {
-    this.stampSmallImagePath = stampSmallImagePath;
-  }
+	public void setStampShortDescription(final String stampShortDescription) {
+		this.stampShortDescription = stampShortDescription;
+	}
 
-  public void setUser(User user) {
-    this.user = user;
-  }
+	public void setStampSmallImagePath(final String stampSmallImagePath) {
+		this.stampSmallImagePath = stampSmallImagePath;
+	}
+
+	public void setUser(final User user) {
+		this.user = user;
+	}
 
 }

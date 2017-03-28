@@ -1,75 +1,65 @@
 package co.edu.uniandes.shamp.dto;
 
 
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonInclude(Include.NON_NULL)
 public class ShirtDto {
 
-  private int id;
-  private String name;
-  private String shirtColor;
-  private String shirtSex;
-  private String shirtSize;
-  private List<String> size;
-  private String userId;
+	@JsonProperty
+	private int stamp_id;
 
-  public int getId() {
-    return this.id;
-  }
+	@JsonProperty
+	private int shirt_id;
 
-  public String getName() {
-    return this.name;
-  }
+	@JsonProperty
+	private int quantity;
 
-  public String getShirtColor() {
-    return this.shirtColor;
-  }
+	@JsonProperty
+	private String size;
 
-  public String getShirtSex() {
-    return this.shirtSex;
-  }
+	@JsonProperty
+	private String location;
 
-  public String getShirtSize() {
-    return this.shirtSize;
-  }
+	public int getStamp_id() {
+		return this.stamp_id;
+	}
 
-  public List<String> getSize() {
-    return this.size;
-  }
+	public void setStamp_id(final int stamp_id) {
+		this.stamp_id = stamp_id;
+	}
 
-  public String getUserId() {
-    return this.userId;
-  }
+	public int getShirt_id() {
+		return this.shirt_id;
+	}
 
-  public void setId(int id) {
-    this.id = id;
-  }
+	public void setShirt_id(final int shirt_id) {
+		this.shirt_id = shirt_id;
+	}
 
-  public void setName(String name) {
-    this.name = name;
-  }
+	public int getQuantity() {
+		return this.quantity;
+	}
 
-  public void setShirtColor(String shirtColor) {
-    this.shirtColor = shirtColor;
-  }
+	public void setQuantity(final int quantity) {
+		this.quantity = quantity;
+	}
 
-  public void setShirtSex(String shirtSex) {
-    this.shirtSex = shirtSex;
-  }
+	public String getSize() {
+		return this.size;
+	}
 
-  public void setShirtSize(String shirtSize) {
-    this.shirtSize = shirtSize;
-  }
+	public void setSize(final String size) {
+		this.size = size;
+	}
 
-  public void setSize(List<String> size) {
-    this.size = size;
-  }
+	public String getLocation() {
+		return this.location;
+	}
 
-  public void setUserId(String userId) {
-    this.userId = userId;
-  }
+	public void setLocation(final String location) {
+		this.location = location;
+	}
 }

@@ -14,7 +14,7 @@ public class OrderDto {
 	@JsonProperty
 	private DetailOrderDto order;
 	@JsonProperty
-	private List<shirtDto> products;
+	private List<ShirtDto> products;
 
 	public String getUser_id() {
 		return this.user_id;
@@ -32,11 +32,11 @@ public class OrderDto {
 		this.order = order;
 	}
 
-	public List<shirtDto> getProducts() {
+	public List<ShirtDto> getProducts() {
 		return this.products;
 	}
 
-	public void setProducts(final List<shirtDto> products) {
+	public void setProducts(final List<ShirtDto> products) {
 		this.products = products;
 	}
 

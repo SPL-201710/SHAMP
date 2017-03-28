@@ -17,11 +17,14 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 @javax.persistence.Entity
 @NamedQueries({@NamedQuery(name = Shirt.FIND_ALL,
-query = "select e from Shirt e where e.active = true order by e.id desc")})
+		query = "select e from Shirt e where e.active = true order by e.id desc"),
+		@NamedQuery(name = Shirt.FIND_BY_ID, query = "select e from Shirt e where e.active = true and e.id = :shirtId order by e.id desc"), })
 @Table(name = "shirt")
 public class Shirt extends Entity {
 
 	public static final String FIND_ALL = PREFIX + "Shirt.findALL";
+
+	public static final String FIND_BY_ID = PREFIX + "Shirt.findById";
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -120,6 +123,7 @@ public class Shirt extends Entity {
 	public void setShirtPrice(final String shirtPrice) {
 		this.shirtPrice = shirtPrice;
 	}
+
 
 }
 

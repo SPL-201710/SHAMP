@@ -1,5 +1,7 @@
 package co.edu.uniandes.shamp.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,98 +12,63 @@ import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-
 @javax.persistence.Entity
 @Table(name = "stamp_shirt")
 public class StampShirt extends Entity {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "shamp_shirt_id", unique = true, nullable = false)
+	private Integer id;
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "shirt_id", unique = true, nullable = false)
-  private Integer id;
+	@NotEmpty
+	@Column(name = "stamp_size", nullable = false)
+	private String stampSize;
 
-  @NotEmpty
-  @Column(name = "shirt_color", nullable = false)
-  private String shirtColor;
+	@NotEmpty
+	@Column(name = "stamp_location", nullable = false)
+	private String stampLocation;
 
-  @NotEmpty
-  @Column(name = "shirt_large_image_path", nullable = false)
-  private String shirtLargeImagePath;
+	@JsonIgnore
+	@ManyToOne
+	@JoinColumn(name = "stamp_id")
+	private Stamp stamp;
 
-  @NotEmpty
-  @Column(name = "shirt_sex", nullable = false)
-  private String shirtSex;
+	@JsonIgnore
+	@ManyToOne
+	@JoinColumn(name = "shirt_id")
+	private Shirt shirt;
 
-  @NotEmpty
-  @Column(name = "shirt_size", nullable = false)
-  private String shirtSize;
+	public String getStampSize() {
+		return this.stampSize;
+	}
 
-  @NotEmpty
-  @Column(name = "shirt_small_image_path", nullable = false)
-  private String shirtSmallImagePath;
+	public void setStampSize(final String stampSize) {
+		this.stampSize = stampSize;
+	}
 
-  @JsonIgnore
-  @ManyToOne
-  @JoinColumn(name = "user_id")
-  private User user;
+	public String getStampLocation() {
+		return this.stampLocation;
+	}
 
-  public Integer getId() {
-    return this.id;
-  }
+	public void setStampLocation(final String stampLocation) {
+		this.stampLocation = stampLocation;
+	}
 
-  public String getShirtColor() {
-    return this.shirtColor;
-  }
+	public Stamp getStamp() {
+		return this.stamp;
+	}
 
-  public String getShirtLargeImagePath() {
-    return this.shirtLargeImagePath;
-  }
+	public void setStamp(final Stamp stamp) {
+		this.stamp = stamp;
+	}
 
-  public String getShirtSex() {
-    return this.shirtSex;
-  }
+	public Shirt getShirt() {
+		return this.shirt;
+	}
 
-  public String getShirtSize() {
-    return this.shirtSize;
-  }
+	public void setShirt(final Shirt shirt) {
+		this.shirt = shirt;
+	}
 
-  public String getShirtSmallImagePath() {
-    return this.shirtSmallImagePath;
-  }
-
-  public User getUser() {
-    return this.user;
-  }
-
-  public void setId(Integer id) {
-    this.id = id;
-  }
-
-  public void setShirtColor(String shirtColor) {
-    this.shirtColor = shirtColor;
-  }
-
-  public void setShirtLargeImagePath(String shirtLargeImagePath) {
-    this.shirtLargeImagePath = shirtLargeImagePath;
-  }
-
-  public void setShirtSex(String shirtSex) {
-    this.shirtSex = shirtSex;
-  }
-
-  public void setShirtSize(String shirtSize) {
-    this.shirtSize = shirtSize;
-  }
-
-  public void setShirtSmallImagePath(String shirtSmallImagePath) {
-    this.shirtSmallImagePath = shirtSmallImagePath;
-  }
-
-  public void setUser(User user) {
-    this.user = user;
-  }
 }
-
