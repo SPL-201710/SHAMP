@@ -1,73 +1,43 @@
 package co.edu.uniandes.shamp.dto;
 
 
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-import co.edu.uniandes.shamp.model.Shirt;
+import java.util.List;
 
 @JsonInclude(Include.NON_NULL)
 public class OrderDto {
+	@JsonProperty
+	private String user_id;
+	@JsonProperty
+	private DetailOrderDto order;
+	@JsonProperty
+	private List<shirtDto> products;
 
-  private String quantity;
-  private String shirtColor;
-  private List<Shirt> shirts;
+	public String getUser_id() {
+		return this.user_id;
+	}
 
-  public int getId() {
-    return this.id;
-  }
+	public void setUser_id(final String user_id) {
+		this.user_id = user_id;
+	}
 
-  public String getName() {
-    return this.name;
-  }
+	public DetailOrderDto getOrder() {
+		return this.order;
+	}
 
-  public String getShirtColor() {
-    return this.shirtColor;
-  }
+	public void setOrder(final DetailOrderDto order) {
+		this.order = order;
+	}
 
-  public String getShirtSex() {
-    return this.shirtSex;
-  }
+	public List<shirtDto> getProducts() {
+		return this.products;
+	}
 
-  public String getShirtSize() {
-    return this.shirtSize;
-  }
+	public void setProducts(final List<shirtDto> products) {
+		this.products = products;
+	}
 
-  public List<String> getSize() {
-    return this.size;
-  }
-
-  public String getUserId() {
-    return this.userId;
-  }
-
-  public void setId(int id) {
-    this.id = id;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  public void setShirtColor(String shirtColor) {
-    this.shirtColor = shirtColor;
-  }
-
-  public void setShirtSex(String shirtSex) {
-    this.shirtSex = shirtSex;
-  }
-
-  public void setShirtSize(String shirtSize) {
-    this.shirtSize = shirtSize;
-  }
-
-  public void setSize(List<String> size) {
-    this.size = size;
-  }
-
-  public void setUserId(String userId) {
-    this.userId = userId;
-  }
 }
