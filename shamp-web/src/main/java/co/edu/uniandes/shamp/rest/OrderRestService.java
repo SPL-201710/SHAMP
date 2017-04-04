@@ -6,7 +6,6 @@ import java.util.logging.Logger;
 import javax.annotation.security.PermitAll;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
-import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -33,7 +32,7 @@ public class OrderRestService extends RestService {
   @POST
   @PermitAll
   @Path("/register")
-  public Response register(@Valid @NotNull final OrderDto orderDto) throws BusinessException {
+  public Response register(@NotNull final OrderDto orderDto) throws BusinessException {
     try {
       final Successful successful = this.createSuccessful("", this.service.register(orderDto));;
       successful.setMessage("Order created");

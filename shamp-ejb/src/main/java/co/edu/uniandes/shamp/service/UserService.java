@@ -19,118 +19,126 @@ import co.edu.uniandes.shamp.util.exception.BusinessException;
 @Stateless
 public class UserService {
 
-  @Inject
-  private Logger loggger;
+	@Inject
+	private Logger loggger;
 
-  @Inject
-  private UserRepository repository;
+	@Inject
+	private UserRepository repository;
 
-  @Inject
-  private UserBillingRepository repositoryBilling;
-
-
-  private UserDto getUserDto(final User u) {
-    final UserDto dto = new UserDto();
-    dto.setId(u.getId());
-    dto.setEmail(u.getEmail());
-    dto.setName(u.getName());
-    dto.setSurname(u.getSurname());
-    dto.setUsername(u.getUsername());
-    return dto;
-  }
-
-  public Session login(final User user) throws BusinessException {
-    this.loggger.info("Login username " + user.getUsername() + " password " + user.getPassword());
-    final User u =
-        this.repository.findByUsernameAndPassword(user.getUsername(), user.getPassword());
-
-    final UserBilling bill = this.repositoryBilling.findId(u.getId());
-
-    final UserDto dto = this.getUserDto(u);
-    final Session session = new Session();
-    session.setUser(dto);
-    session.setUserBilling(bill);
-    return session;
-  }
+	@Inject
+	private UserBillingRepository repositoryBilling;
 
 
+	private UserDto getUserDto(final User u) {
+		final UserDto dto = new UserDto();
+		dto.setId(u.getId());
+		dto.setEmail(u.getEmail());
+		dto.setName(u.getName());
+		dto.setSurname(u.getSurname());
+		dto.setUsername(u.getUsername());
+		return dto;
+	}
 
-  public Session register(final co.edu.uniandes.shamp.dto.CustomerDto customerDto)
-      throws BusinessException {
-    if (Objects.isNull(this.repository.findByUsername(customerDto.getUsername()))) {
-      final User customer = new User();
-      customer.setActive(true);
-      customer.setCreationDate(new Date());
-      customer.setUserType(new Integer(1));
+	public Session login(final User user) throws BusinessException {
+		this.loggger.info("Login username " + user.getUsername() + " password " + user.getPassword());
+		final User u =
+				this.repository.findByUsernameAndPassword(user.getUsername(), user.getPassword());
 
-      if (customerDto.getEmail() != null) {
-        customer.setEmail(customerDto.getEmail());
-      }
+		final UserBilling bill = this.repositoryBilling.findId(u.getId());
 
-      if (customerDto.getPassword() != null) {
-        customer.setPassword(customerDto.getPassword());
-      }
+		final UserDto dto = this.getUserDto(u);
+		final Session session = new Session();
+		session.setUser(dto);
+		session.setUserBilling(bill);
+		return session;
+	}
 
-      if (customerDto.getSurname() != null) {
-        customer.setSurname(customerDto.getSurname());
-        customer.setName(customerDto.getSurname());
-      }
 
-      if (customerDto.getUsername() != null) {
-        customer.setUsername(customerDto.getUsername());
-      }
 
-      this.repository.persist(customer);
+	public Session register(final co.edu.uniandes.shamp.dto.CustomerDto customerDto)
+			throws BusinessException {
+		if (Objects.isNull(this.repository.findByUsername(customerDto.getUsername()))) {
+			final User customer = new User();
+			customer.setActive(true);
+			customer.setCreationDate(new Date());
+			customer.setUserType(new Integer(1));
 
-      this.loggger.info(
-          "Login username " + customerDto.getUsername() + " password " + customerDto.getPassword());
-      final User u = this.repository.findByUsernameAndPassword(customerDto.getUsername(),
-          customerDto.getPassword());
+			if (customerDto.getEmail() != null) {
+				customer.setEmail(customerDto.getEmail());
+			}
 
-      final UserBilling customerBilling = new UserBilling();
+			if (customerDto.getPassword() != null) {
+				customer.setPassword(customerDto.getPassword());
+			}
 
-      customerBilling.setActive(true);
-      customerBilling.setBillingStatus(new Integer(1));
-      customerBilling.setCreationDate(new Date());
+			if (customerDto.getSurname() != null) {
+				customer.setSurname(customerDto.getSurname());
+				customer.setName(customerDto.getSurname());
+			}
 
-      if (customerDto.getCity() != null) {
-        customerBilling.setUserCity(customerDto.getCity());
-      }
+			if (customerDto.getUsername() != null) {
+				customer.setUsername(customerDto.getUsername());
+			}
 
-      if (customerDto.getCity() != null) {
-        customerBilling.setUserCity(customerDto.getCity());
-      }
+			this.repository.persist(customer);
 
-      if (customerDto.getCountry() != null) {
-        customerBilling.setUserCountry(customerDto.getCountry());
-      }
+			this.loggger.info(
+					"Login username " + customerDto.getUsername() + " password " + customerDto.getPassword());
+			final User u = this.repository.findByUsernameAndPassword(customerDto.getUsername(),
+					customerDto.getPassword());
 
-      if (customerDto.getCvv() != null) {
-        customerBilling.setCvv(customerDto.getCvv());
-      }
+			final UserBilling customerBilling = new UserBilling();
 
-      if (customerDto.getExpiration_date() != null) {
-        customerBilling.setExpirationDate(customerDto.getExpiration_date());
-      }
+			customerBilling.setActive(true);
+			customerBilling.setBillingStatus(new Integer(1));
+			customerBilling.setCreationDate(new Date());
 
-      if (customerDto.getName_card() != null) {
-        customerBilling.setNameCard(customerDto.getName_card());
-        customerBilling.setName(customerDto.getName_card());
-      }
+			if (customerDto.getCity() != null) {
+				customerBilling.setUserCity(customerDto.getCity());
+			}
 
-      customerBilling.setUser(u);
+			if (customerDto.getUser_address() != null) {
+				customerBilling.setUserAddress(customerDto.getUser_address());
+			}
 
-      this.repositoryBilling.persist(customerBilling);
+			if (customerDto.getUser_credit_card() != null) {
+				customerBilling.setUserCreditCard(customerDto.getUser_credit_card());
+			}
 
-      final UserBilling bill = this.repositoryBilling.findId(u.getId());
-      final UserDto dto = this.getUserDto(u);
-      final Session session = new Session();
-      session.setUser(dto);
-      session.setUserBilling(bill);
-      return session;
-    } else {
-      throw new BusinessException("Username exist", "CONFLICT");
-    }
-  }
+			if (customerDto.getPhone_number() != null) {
+				customerBilling.setPhoneNumber(customerDto.getPhone_number());
+			}
+
+			if (customerDto.getCountry() != null) {
+				customerBilling.setUserCountry(customerDto.getCountry());
+			}
+
+			if (customerDto.getCvv() != null) {
+				customerBilling.setCvv(customerDto.getCvv());
+			}
+
+			if (customerDto.getExpiration_date() != null) {
+				customerBilling.setExpirationDate(customerDto.getExpiration_date());
+			}
+
+			if (customerDto.getName_card() != null) {
+				customerBilling.setNameCard(customerDto.getName_card());
+				customerBilling.setName(customerDto.getName_card());
+			}
+
+			customerBilling.setUser(u);
+
+			this.repositoryBilling.persist(customerBilling);
+
+			final UserBilling bill = this.repositoryBilling.findId(u.getId());
+			final UserDto dto = this.getUserDto(u);
+			final Session session = new Session();
+			session.setUser(dto);
+			session.setUserBilling(bill);
+			return session;
+		} else {
+			throw new BusinessException("Username exist", "CONFLICT");
+		}
+	}
 
 }

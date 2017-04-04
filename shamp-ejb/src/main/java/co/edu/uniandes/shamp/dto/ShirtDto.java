@@ -15,7 +15,7 @@ public class ShirtDto {
 	private int shirt_id;
 
 	@JsonProperty
-	private int quantity;
+	private Integer quantity;
 
 	@JsonProperty
 	private String size;
@@ -39,14 +39,6 @@ public class ShirtDto {
 		this.shirt_id = shirt_id;
 	}
 
-	public int getQuantity() {
-		return this.quantity;
-	}
-
-	public void setQuantity(final int quantity) {
-		this.quantity = quantity;
-	}
-
 	public String getSize() {
 		return this.size;
 	}
@@ -62,4 +54,13 @@ public class ShirtDto {
 	public void setLocation(final String location) {
 		this.location = location;
 	}
+
+	public Integer getQuantity() {
+		return this.quantity;
+	}
+
+	public void setQuantity(final Integer quantity) {
+		this.quantity = quantity;
+	}
+
 }
