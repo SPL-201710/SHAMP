@@ -21,8 +21,6 @@ public class UserOrder extends Entity {
   @Column(name = "order_id", unique = true, nullable = false)
   private Integer id;
 
-
-
   @NotEmpty
   @Column(name = "order_status", nullable = false)
   private String orderStatus;
