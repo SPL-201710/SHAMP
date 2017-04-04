@@ -7,7 +7,6 @@ import javax.annotation.security.PermitAll;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -15,8 +14,8 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import co.edu.uniandes.shamp.dto.CustomerDto;
 import co.edu.uniandes.shamp.dto.Session;
-import co.edu.uniandes.shamp.dto.Successful;
 import co.edu.uniandes.shamp.model.User;
 import co.edu.uniandes.shamp.service.UserService;
 import co.edu.uniandes.shamp.util.AuthUtils;
@@ -54,13 +53,12 @@ public class AuthRestService extends RestService {
   @POST
   @PermitAll
   @Path("register")
-  public Response register(@Valid @NotNull final User user) throws BusinessException {
+  public Response register(@NotNull final CustomerDto customerDto,
+      @Context final HttpServletRequest request) throws BusinessException {
     try {
-      this.userService.register(user);
-      final Successful successful = new Successful();
-      successful.setMessage("User created");
-      successful.setTitle("User created");
-      final Response response = Response.status(Status.OK).entity(successful).build();
+      final Session session = this.userService.register(customerDto);
+      AuthUtils.createToken(request.getRemoteHost(), session);
+      final Response response = Response.status(Status.OK).entity(session).build();
       return response;
     } catch (BusinessException | SystemException ex) {
       throw ex;

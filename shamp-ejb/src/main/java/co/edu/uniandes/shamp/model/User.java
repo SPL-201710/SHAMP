@@ -50,24 +50,40 @@ public class User extends Entity {
   @Column(name = "username", unique = true, nullable = false)
   private String username;
 
+  @Column(name = "user_type")
+  private Integer userType;
+
   public String getEmail() {
     return this.email;
   }
 
-  public String getPassword() {
+  public Integer getId() {
+    return this.id;
+  }
+
+  public final String getPassword() {
     return this.password;
   }
 
-  public String getSurname() {
+  public final String getSurname() {
     return this.surname;
   }
 
-  public String getUsername() {
+  public final String getUsername() {
     return this.username;
+  }
+
+  public final Integer getUserType() {
+    return this.userType;
   }
 
   public void setEmail(final String email) {
     this.email = email;
+  }
+
+
+  public void setId(final Integer id) {
+    this.id = id;
   }
 
   public void setPassword(final String password) {
@@ -80,6 +96,10 @@ public class User extends Entity {
 
   public void setUsername(final String username) {
     this.username = username;
+  }
+
+  public void setUserType(final Integer userType) {
+    this.userType = userType;
   }
 
 }

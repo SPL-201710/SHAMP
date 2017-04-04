@@ -8,12 +8,17 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 public class UserDto {
 
   private String email;
+  private int id;
   private String name;
   private String surname;
   private String username;
 
   public String getEmail() {
     return this.email;
+  }
+
+  public int getId() {
+    return this.id;
   }
 
   public String getName() {
@@ -30,6 +35,10 @@ public class UserDto {
 
   public void setEmail(final String email) {
     this.email = email;
+  }
+
+  public void setId(int id) {
+    this.id = id;
   }
 
   public void setName(final String name) {
