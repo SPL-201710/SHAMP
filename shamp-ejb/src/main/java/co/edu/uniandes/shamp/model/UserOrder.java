@@ -6,6 +6,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -13,8 +15,12 @@ import org.hibernate.validator.constraints.NotEmpty;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @javax.persistence.Entity
+@NamedQueries({@NamedQuery(name = UserOrder.FIND_BY_USER_ID,
+    query = "select u from UserOrder u where u.user.id = :user_id")})
 @Table(name = "user_orders")
 public class UserOrder extends Entity {
+
+  public static final String FIND_BY_USER_ID = PREFIX + "UserOrder.findByUserID";
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

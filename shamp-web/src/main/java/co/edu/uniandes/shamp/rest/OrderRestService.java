@@ -7,6 +7,7 @@ import javax.annotation.security.PermitAll;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.validation.constraints.NotNull;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
@@ -28,6 +29,22 @@ public class OrderRestService extends RestService {
   @Inject
   private OrderService service;
 
+
+  @GET
+  @Path("/{user_id}")
+  public Response get(@PathParam("user_id") final int user_id) throws BusinessException {
+    try {
+      final OrderDto orderDto = this.service.get(user_id);
+      final Successful successful = this.createSuccessful("", orderDto);
+      final Response response = Response.status(Status.CREATED).entity(successful).build();
+      return response;
+    } catch (BusinessException | SystemException ex) {
+      throw ex;
+    } catch (final Exception ex) {
+      this.logger.log(Level.SEVERE, ex.getMessage(), ex);
+      throw new SystemException();
+    }
+  }
 
   @POST
   @PermitAll

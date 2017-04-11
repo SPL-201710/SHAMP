@@ -8,8 +8,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.hibernate.validator.constraints.NotEmpty;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @javax.persistence.Entity
@@ -26,9 +24,9 @@ public class OrderShirt extends Entity {
   @JoinColumn(name = "order_id")
   private UserOrder order;
 
-  @NotEmpty
-  @Column(name = "shirt_quantity", nullable = false)
-  private Integer shirtQuantity;
+
+  @Column(name = "shirt_quantity")
+  private Double shirtQuantity;
 
   @JsonIgnore
   @ManyToOne
@@ -43,7 +41,7 @@ public class OrderShirt extends Entity {
     return this.order;
   }
 
-  public Integer getShirtQuantity() {
+  public Double getShirtQuantity() {
     return this.shirtQuantity;
   }
 
@@ -59,14 +57,12 @@ public class OrderShirt extends Entity {
     this.order = order;
   }
 
-  public void setShirtQuantity(Integer shirtQuantity) {
+  public void setShirtQuantity(Double shirtQuantity) {
     this.shirtQuantity = shirtQuantity;
   }
 
   public void setStampShirt(StampShirt stampShirt) {
     this.stampShirt = stampShirt;
   }
-
-
 
 }
