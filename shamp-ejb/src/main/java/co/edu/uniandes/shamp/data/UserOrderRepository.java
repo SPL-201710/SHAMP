@@ -1,5 +1,6 @@
 package co.edu.uniandes.shamp.data;
 
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -9,7 +10,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
 
-import co.edu.uniandes.shamp.model.User;
 import co.edu.uniandes.shamp.model.UserOrder;
 import co.edu.uniandes.shamp.util.exception.SystemException;
 
@@ -22,13 +22,13 @@ public class UserOrderRepository {
   @Inject
   private Logger logger;
 
-  public User findByUserId(final int userId) {
+  public List<UserOrder> findByUserId(final int userId) {
     try {
-      return this.em.createNamedQuery(User.FIND_BY_ID, User.class).setParameter("userId", userId)
-          .getSingleResult();
+      return this.em.createNamedQuery(UserOrder.FIND_BY_USER_ID, UserOrder.class)
+          .setParameter("userId", userId).getResultList();
 
     } catch (final NoResultException nre) {
-      this.logger.log(Level.WARNING, "problemas al listar todas las estampas");
+      this.logger.log(Level.WARNING, "problemas al buscar findByUserId");
       return null;
     }
   }

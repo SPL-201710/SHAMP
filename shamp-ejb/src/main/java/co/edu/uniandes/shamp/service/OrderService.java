@@ -1,6 +1,8 @@
 package co.edu.uniandes.shamp.service;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Logger;
 
 import javax.ejb.Stateless;
@@ -12,6 +14,7 @@ import co.edu.uniandes.shamp.data.ShirtRepository;
 import co.edu.uniandes.shamp.data.StampShirtRepository;
 import co.edu.uniandes.shamp.data.UserOrderRepository;
 import co.edu.uniandes.shamp.data.UserRepository;
+import co.edu.uniandes.shamp.dto.DetailOrderDto;
 import co.edu.uniandes.shamp.dto.OrderDto;
 import co.edu.uniandes.shamp.dto.ShirtDto;
 import co.edu.uniandes.shamp.model.OrderShirt;
@@ -46,12 +49,49 @@ public class OrderService {
   @Inject
   private UserRepository userRepository;
 
-  public UserOrder getOrderByuserId(final int user_id) throws BusinessException {
+  public List<OrderDto> getOrderByuserId(final int user_id) throws BusinessException {
 
-    final User user = this.userRepository.findId(orderDto.getUser_id());
+    final List<OrderDto> listOrderDto = new ArrayList<OrderDto>();
+    final List<UserOrder> listUserOrder = this.userOrderRepository.findByUserId(user_id);
+
+    for (final UserOrder userOrder : listUserOrder) {
+      final OrderDto orderDto = new OrderDto();
+      orderDto.setId(userOrder.getId());
+      orderDto.setUser_id(user_id);
+
+      final DetailOrderDto detailOrderDto = new DetailOrderDto();
+      detailOrderDto.setCity(userOrder.getCity());
+      detailOrderDto.setContact_phone(userOrder.getContactPhone());
+      detailOrderDto.setDelivery_address(userOrder.getDeliveryAddress());
+      detailOrderDto.setCountry(userOrder.getCountry());
+
+      orderDto.setOrder(detailOrderDto);
+
+      final List<OrderShirt> listProduct =
+          this.orderStampShirtRepository.findOrderStampByUserOrderId(userOrder.getId());
+
+      final List<ShirtDto> products = new ArrayList<ShirtDto>();
+
+      for (final OrderShirt product : listProduct) {
+
+        final StampShirt stampShirt =
+            this.orderStampShirtRepository.findStampShirtById(product.getStampShirt().getId());
+
+        final ShirtDto shirtDto = new ShirtDto();
+        shirtDto.setQuantity(product.getShirtQuantity().intValue());
+        shirtDto.setLocation(stampShirt.getStampLocation());
+        shirtDto.setShirt_id(stampShirt.getShirt().getId());
+        shirtDto.setStamp_id(stampShirt.getStamp().getId());
+        shirtDto.setSize(stampShirt.getStampSize());
+
+        products.add(shirtDto);
+        orderDto.setProducts(products);
+      }
 
 
-    return userOrder;
+      listOrderDto.add(orderDto);
+    }
+    return listOrderDto;
   }
 
   public UserOrder register(final OrderDto orderDto) throws BusinessException {
@@ -105,7 +145,13 @@ public class OrderService {
     userOrder.setName(String.valueOf(orderDto.getUser_id()));
     userOrder.setOrderStatus("En carro de compras");
     userOrder.setUser(user);
+    userOrder.setContactPhone(orderDto.getOrder().getContact_phone());
+    userOrder.setCountry(orderDto.getOrder().getCountry());
+    userOrder.setDeliveryAddress(orderDto.getOrder().getDelivery_address());
+    userOrder.setCity(orderDto.getOrder().getCity());
     return userOrder;
   }
+
+
 
 }

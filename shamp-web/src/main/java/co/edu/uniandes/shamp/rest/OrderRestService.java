@@ -1,5 +1,6 @@
 package co.edu.uniandes.shamp.rest;
 
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -10,6 +11,7 @@ import javax.validation.constraints.NotNull;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
@@ -34,7 +36,7 @@ public class OrderRestService extends RestService {
   @Path("/{user_id}")
   public Response get(@PathParam("user_id") final int user_id) throws BusinessException {
     try {
-      final OrderDto orderDto = this.service.get(user_id);
+      final List<OrderDto> orderDto = this.service.getOrderByuserId(user_id);
       final Successful successful = this.createSuccessful("", orderDto);
       final Response response = Response.status(Status.CREATED).entity(successful).build();
       return response;

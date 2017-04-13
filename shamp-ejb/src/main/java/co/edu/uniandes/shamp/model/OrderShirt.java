@@ -6,13 +6,19 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @javax.persistence.Entity
+@NamedQueries({@NamedQuery(name = OrderShirt.FIND_BY_USER_ORDER_ID,
+    query = "select u from OrderShirt u where u.order.id = :userOrderId")})
 @Table(name = "order_shirt")
 public class OrderShirt extends Entity {
+
+  public static final String FIND_BY_USER_ORDER_ID = PREFIX + "UserOrder.findByUserOrderID";
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

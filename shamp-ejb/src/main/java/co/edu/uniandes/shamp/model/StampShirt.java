@@ -1,74 +1,90 @@
 package co.edu.uniandes.shamp.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @javax.persistence.Entity
+@NamedQueries({@NamedQuery(name = StampShirt.FIND_BY_ID,
+    query = "select u from StampShirt u where u.id = :id")})
 @Table(name = "stamp_shirt")
 public class StampShirt extends Entity {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "shamp_shirt_id", unique = true, nullable = false)
-	private Integer id;
+  public static final String FIND_BY_ID = PREFIX + "UserOrder.findByID";
 
-	@NotEmpty
-	@Column(name = "stamp_size", nullable = false)
-	private String stampSize;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "stamp_shirt_id", unique = true, nullable = false)
+  private Integer id;
 
-	@NotEmpty
-	@Column(name = "stamp_location", nullable = false)
-	private String stampLocation;
+  @JsonIgnore
+  @ManyToOne
+  @JoinColumn(name = "shirt_id")
+  private Shirt shirt;
 
-	@JsonIgnore
-	@ManyToOne
-	@JoinColumn(name = "stamp_id")
-	private Stamp stamp;
+  @JsonIgnore
+  @ManyToOne
+  @JoinColumn(name = "stamp_id")
+  private Stamp stamp;
 
-	@JsonIgnore
-	@ManyToOne
-	@JoinColumn(name = "shirt_id")
-	private Shirt shirt;
+  @NotEmpty
+  @Column(name = "stamp_location", nullable = false)
+  private String stampLocation;
 
-	public String getStampSize() {
-		return this.stampSize;
-	}
+  @NotEmpty
+  @Column(name = "stamp_size", nullable = false)
+  private String stampSize;
 
-	public void setStampSize(final String stampSize) {
-		this.stampSize = stampSize;
-	}
+  public Integer getId() {
+    return this.id;
+  }
 
-	public String getStampLocation() {
-		return this.stampLocation;
-	}
+  public Shirt getShirt() {
+    return this.shirt;
+  }
 
-	public void setStampLocation(final String stampLocation) {
-		this.stampLocation = stampLocation;
-	}
+  public Stamp getStamp() {
+    return this.stamp;
+  }
 
-	public Stamp getStamp() {
-		return this.stamp;
-	}
+  public String getStampLocation() {
+    return this.stampLocation;
+  }
 
-	public void setStamp(final Stamp stamp) {
-		this.stamp = stamp;
-	}
+  public String getStampSize() {
+    return this.stampSize;
+  }
 
-	public Shirt getShirt() {
-		return this.shirt;
-	}
+  public void setId(Integer id) {
+    this.id = id;
+  }
 
-	public void setShirt(final Shirt shirt) {
-		this.shirt = shirt;
-	}
+  public void setShirt(final Shirt shirt) {
+    this.shirt = shirt;
+  }
+
+  public void setStamp(final Stamp stamp) {
+    this.stamp = stamp;
+  }
+
+  public void setStampLocation(final String stampLocation) {
+    this.stampLocation = stampLocation;
+  }
+
+  public void setStampSize(final String stampSize) {
+    this.stampSize = stampSize;
+  }
+
+
 
 }

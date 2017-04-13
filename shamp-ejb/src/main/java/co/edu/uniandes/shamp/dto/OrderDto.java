@@ -9,14 +9,22 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonInclude(Include.NON_NULL)
 public class OrderDto {
+
+  @JsonProperty
+  private Integer id;
+
   @JsonProperty
   private DetailOrderDto order;
+
   @JsonProperty
   private List<ShirtDto> products;
+
   @JsonProperty
   private Integer user_id;
 
-
+  public Integer getId() {
+    return this.id;
+  }
 
   public DetailOrderDto getOrder() {
     return this.order;
@@ -30,6 +38,10 @@ public class OrderDto {
     return this.user_id;
   }
 
+  public void setId(Integer id) {
+    this.id = id;
+  }
+
   public void setOrder(final DetailOrderDto order) {
     this.order = order;
   }
@@ -41,5 +53,7 @@ public class OrderDto {
   public void setUser_id(Integer user_id) {
     this.user_id = user_id;
   }
+
+
 
 }
