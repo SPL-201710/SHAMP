@@ -1,0 +1,323 @@
+@(signUpForm: Form[forms.SignUpForm])(session: String)(message: String)
+@import helper._
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Shamp - Crea tu Camiseta</title>
+
+   <!-- Bootstrap Core CSS -->
+    <link href="@routes.Assets.versioned("css/bootstrap.min.css")" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link href="@routes.Assets.versioned("css/modern-business.css")" rel="stylesheet">
+    <!-- Custom Fonts -->
+    <link href="@routes.Assets.versioned("font-awesome/css/font-awesome.min.css")" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+    <script>
+        function sendData()
+        {
+            
+            var nameContent = document.getElementById("name").value;
+            var emailContent = document.getElementById("email1").value;
+            var passwordContent = document.getElementById("password1").value;
+            var companyContent = document.getElementById("company").value;
+            $.ajax({
+                method: "POST",
+                url: "registerUser",
+                dataType : 'json',
+                data: { name: nameContent,
+                        email: emailContent,
+                        password: passwordContent,
+                        company: companyContent
+                }
+                    })
+            .done(function( msg ) {
+            alert( "Data Saved: " + msg );
+            });
+        }
+    </script>
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index">Start Bootstrap</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Registro <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="registerArtist">Registro Artistas</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="login">Ingreso</a>
+                    </li>
+                    
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container">
+
+        <div class="container-fluid">
+    <section class="container">
+		<div class="container-page">
+        @form(action=routes.RegisterController.registerUser()){
+			<div class="col-md-6">
+				<h3 class="dark-grey">Registro</h3>
+				
+				<div class="form-group col-lg-6">
+				<label>Nombres</label>
+				@inputText(signUpForm("first_name"),
+                '_showConstraints->false,
+                '_label -> Nil,
+                'placeholder -> "Nombres",
+                'autocomplete ->"off",
+                'maxlength->"100",
+                'class->"form-control"
+                )
+                </div>
+                
+                <div class="form-group col-lg-6">
+				<label>Apellidos</label>
+				@inputText(signUpForm("last_name"),
+                '_showConstraints->false,
+                '_label -> Nil,
+                'placeholder -> "Apellidos",
+                'autocomplete ->"off",
+                'maxlength->"100",
+                'class->"form-control"
+                )
+                </div>
+				
+				<div class="form-group col-lg-6">
+				<label>Correo Electronico</label>
+				@inputText(signUpForm("mail"),
+                '_showConstraints->false,
+                '_label -> Nil,
+                'placeholder -> "Correo electronico",
+                'autocomplete ->"off",
+                'maxlength->"100",
+                'class->"form-control"
+                )
+                </div>
+                
+                <div class="form-group col-lg-6">
+                <label>Repetir Correo Electronico</label>
+                @inputText(signUpForm("mail_confirmation"),
+                '_showConstraints->false,
+                '_label -> Nil,
+                'placeholder -> "Confirmar correo electronico",
+                'autocomplete ->"off",
+                'maxlength->"100",
+                'class->"form-control"
+                )
+                </div>
+				
+				<div class="form-group col-lg-6">
+				<label>Password</label>
+				@inputPassword(signUpForm("password"),
+                '_showConstraints->false,
+                '_label -> Nil,
+                'placeholder -> "Contraseña",
+                'autocomplete ->"off",
+                'maxlength->"40",
+                'class->"form-control"
+                )
+                </div>
+                
+                <div class="form-group col-lg-6">
+                <label>Repetir Password</label>
+                @inputPassword(signUpForm("password_confirmation"),
+                '_showConstraints->false,
+                '_label -> Nil,
+                'placeholder -> "Confirmar contraseña",
+                'autocomplete ->"off",
+                'maxlength->"40",
+                'class->"form-control"
+                )
+                </div>
+                
+                <h3 class="dark-grey">Informacion de Facturacion</h3>
+                
+                <div class="form-group col-lg-6">
+                <label>Pais</label>
+                @inputText(signUpForm("user_country"),
+                '_showConstraints->false,
+                '_label -> Nil,
+                'placeholder -> "Pais",
+                'autocomplete ->"off",
+                'maxlength->"100",
+                'class->"form-control"
+                )
+                </div>
+                
+                <div class="form-group col-lg-6">
+                <label>Pais</label>
+                @inputText(signUpForm("user_city"),
+                '_showConstraints->false,
+                '_label -> Nil,
+                'placeholder -> "Ciudad",
+                'autocomplete ->"off",
+                'maxlength->"100",
+                'class->"form-control"
+                )
+                </div>
+                
+                <div class="form-group col-lg-6">
+                <label>Direccion de Envio</label>
+                @inputText(signUpForm("user_address"),
+                '_showConstraints->false,
+                '_label -> Nil,
+                'placeholder -> "Direccion de Envio",
+                'autocomplete ->"off",
+                'maxlength->"100",
+                'class->"form-control"
+                )
+                </div>
+                
+                <div class="form-group col-lg-6">
+                <label>Telefono</label>
+                @inputText(signUpForm("phone_number"),
+                '_showConstraints->false,
+                '_label -> Nil,
+                'placeholder -> "Telefono",
+                'autocomplete ->"off",
+                'maxlength->"100",
+                'class->"form-control"
+                )
+                </div>
+                
+                
+                <div class="form-group col-lg-6">
+                <label>Numero de Tarjeta de Credito</label>
+                @inputText(signUpForm("credit_card"),
+                '_showConstraints->false,
+                '_label -> Nil,
+                'placeholder -> "Numero de Tarjeta de Credito",
+                'autocomplete ->"off",
+                'maxlength->"16",
+                'class->"form-control"
+                )
+                </div>
+                
+                <div class="form-group col-lg-6">
+                <label>Nombre en la Tarjeta</label>
+                @inputText(signUpForm("name_card"),
+                '_showConstraints->false,
+                '_label -> Nil,
+                'placeholder -> "Nombre en la Tarjeta",
+                'autocomplete ->"off",
+                'maxlength->"100",
+                'class->"form-control"
+                )
+                </div>
+                
+                <div class="form-group col-lg-6">
+                <label>Fecha de Expiracion</label>
+                @inputText(signUpForm("expiration_date"),
+                '_showConstraints->false,
+                '_label -> Nil,
+                'placeholder -> "Fecha de Expiracion",
+                'autocomplete ->"off",
+                'maxlength->"100",
+                'class->"form-control"
+                )
+                </div>
+                
+                <div class="form-group col-lg-6">
+                <label>CVV</label>
+                @inputText(signUpForm("cvv"),
+                '_showConstraints->false,
+                '_label -> Nil,
+                'placeholder -> "CVV",
+                'autocomplete ->"off",
+                'maxlength->"3",
+                'class->"form-control"
+                )
+                </div>
+                
+                
+												
+			
+			</div>
+		
+			<div class="col-md-6">
+				<h3 class="dark-grey">Terminos y Condiciones</h3>
+				<p>
+					Al presionar enviar usted acepta los terminos y condiciones definidos por Supervoice.
+				</p>
+				<p>
+					Toda la informacion publicada en el sitio puede ser procesada por Super Voice para efectos publictarios o de mercadeo segun las disposiciones
+					 definidas oir la organizacion.
+				</p>
+				<p>
+					Super Voice no se hace responsable de publicidades falses expuestas en la plataforma, toda repsonsabilidad recae en el usuario que 
+					origina los concursos y/o ofertas
+				</p>
+				
+				<button type="submit" class="btn btn-primary">Registrar</button>
+				
+				@if(message!= null){
+				    <label>@message</label>
+				}
+				
+			</div>
+			
+			
+			<div><h3 class="dark-grey"></h3></div>
+			}
+		</div>
+	</section>
+</div>
+    <!-- /.container -->
+
+    <!-- jQuery -->
+    <script src="@routes.Assets.versioned("javascripts/jquery.js")"></script>
+	
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="@routes.Assets.versioned("javascripts/bootstrap.min.js")"></script>
+
+</body>
+
+</html>
