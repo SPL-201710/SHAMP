@@ -14,7 +14,8 @@ libraryDependencies ++= Seq(
   "mysql" % "mysql-connector-java" % "5.1.18",
   "com.typesafe.play" %% "play-json" % "2.3.4",
   "org.apache.directory.studio" % "org.apache.commons.io" % "2.4",
-  "com.amazonaws" % "aws-java-sdk" % "1.11.111"
+  "com.amazonaws" % "aws-java-sdk" % "1.11.111",
+  "com.typesafe.play" %% "play-json" % "2.3.4"
 )
 
 

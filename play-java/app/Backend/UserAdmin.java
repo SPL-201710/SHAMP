@@ -22,6 +22,7 @@ import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
 import java.util.Random;
+import dto.*;
 
 public final class UserAdmin{
     
@@ -62,6 +63,70 @@ public final class UserAdmin{
         }
         
         return response;
+    }
+    
+    public static Session registerUser(CustomerDto user) throws Exception
+    {
+    	Session tempSession = new Session();
+    	try
+    	{
+    		User tempUser = User.find.where().eq("user_mail", user.getEmail()).findUnique();
+    		if(tempUser!= null)
+    		{
+    			throw new Exception ("Ya existe un usuario con ese email registrado");
+    		}
+    		else
+    		{
+    			tempUser = new User();
+            	tempUser.active = true;
+            	tempUser.creation_date = new Date();
+            	tempUser.user_first_name = user.getUsername();
+            	tempUser.user_last_name = user.getSurname();
+            	tempUser.user_mail =user.getEmail();
+            	tempUser.user_password = user.getPassword();
+            	tempUser.user_status = 1;
+            	tempUser.user_type = 1;
+            	tempUser.username = user.getUsername();
+            	tempUser.save();
+            	
+            	UserBilling tempBilling = new UserBilling();
+            	
+            	tempBilling.billing_status = 1;
+            	tempBilling.cvv = user.getCvv();
+            	Date tempExpirationDate= new SimpleDateFormat("dd/MM/yyyy").parse(user.getExpiration_date());
+            	tempBilling.expiration_date = tempExpirationDate;
+            	tempBilling.name_card = user.getName_card();
+            	tempBilling.phone_number = user.getPhone_number();
+            	tempBilling.user_address = user.getUser_address();
+            	tempBilling.user_city = user.getCity();
+            	tempBilling.user_country = user.getCountry();
+            	tempBilling.user_credit_card = user.getUser_credit_card();
+            	tempBilling.user_id = tempUser;
+            	tempBilling.save();
+            	
+            	UserDto tempUserDto = new UserDto();
+            	tempUserDto.setEmail(tempUser.user_mail);
+            	tempUserDto.setId(tempUser.user_id);
+            	tempUserDto.setName(tempUser.user_first_name);
+            	tempUserDto.setSurname(tempUser.user_last_name);
+            	tempUserDto.setUsername(tempUser.username);
+            	
+            	tempSession.setUser(tempUserDto);
+            	tempSession.setUserBilling(tempBilling);
+            
+    		}
+        	
+        	
+    	}
+    	catch (Exception ex)
+    	{
+    		throw new Exception ("Se ha presentado un error al registrar el usuario: "+ex.getMessage());
+    	}
+    	
+    	
+    	
+    	
+    	return tempSession;
     }
     
     public static String disableUser(long id)

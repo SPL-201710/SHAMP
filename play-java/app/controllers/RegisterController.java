@@ -27,6 +27,10 @@ import java.io.File;
 import org.apache.commons.io.FileUtils;
 import java.io.IOException;
 
+import util.Util;
+import dto.CustomerDto;
+import dto.Session;
+
 public class RegisterController extends Controller {
 
     
