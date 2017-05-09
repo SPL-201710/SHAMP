@@ -1,0 +1,57 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# An example controller showing a sample home page
+GET     /                           controllers.IndexController.index
+GET     /login                      controllers.IndexController.login
+GET     /registerUser               controllers.IndexController.registerUser
+GET     /registerArtist             controllers.IndexController.registerArtist
+POST    /registerUser               controllers.RegisterController.registerUser()
+POST    /registerArtist             controllers.RegisterController.registerArtist()
+POST    /loginInUser                controllers.RegisterController.loginInUser()
+GET     /logout                     controllers.RegisterController.logOutUser()
+GET     /updateUser                 controllers.IndexController.updateUser
+POST    /updateUser                 controllers.RegisterController.updateUser()
+GET     /changePassword             controllers.IndexController.changePassword
+POST    /changePassword             controllers.RegisterController.changePassword()
+GET     /createStamp                controllers.IndexController.createStamp
+POST    /createStamp                controllers.RegisterController.createStamp()
+GET     /catalog                    controllers.IndexController.showCatalog(id:Long ?= 0)
+GET     /viewStamp                  controllers.IndexController.viewStamp(id:Long ?= 0)
+GET     /addStamp                   controllers.IndexController.addStamp(id:Long ?= 0)
+POST    /addStamp                   controllers.RegisterController.addStamp()
+GET     /viewShoppingCart           controllers.IndexController.viewShoppingCart()
+GET     /removeShirtStamp           controllers.RegisterController.removeShirtStamp(id:Long ?= 0)
+GET     /cancelOrder                controllers.RegisterController.cancelOrder()
+GET     /editShirt                  controllers.IndexController.editShirt(id:Long ?= 0)
+POST    /editShirt                  controllers.RegisterController.editShirt()
+GET     /viewOrders                 controllers.IndexController.viewOrders
+GET     /checkOut                   controllers.RegisterController.checkOut()
+GET     /updateProfile              controllers.IndexController.updateProfile
+POST    /updateProfile              controllers.RegisterController.updateProfile()
+GET     /removeStamp                controllers.RegisterController.removeStamp(id:Long ?= 0)
+GET     /updateStamp                controllers.IndexController.updateStamp(id:Long ?= 0)
+POST    /updateStamp                controllers.RegisterController.updateStamp()
+GET     /adminUsers                 controllers.IndexController.adminUsers
+GET     /disableUser                controllers.RegisterController.disableUser(id:Long ?= 0)
+GET     /adminArtists               controllers.IndexController.adminArtists
+GET     /disableArtist              controllers.RegisterController.disableArtist(id:Long ?= 0)
+GET     /createCategory             controllers.IndexController.createCategory
+POST    /createCategory             controllers.RegisterController.createCategory()
+GET     /adminCategories            controllers.IndexController.adminCategories
+GET     /removeCategory             controllers.RegisterController.removeCategory(id:Long ?= 0)
+GET     /createShirt                controllers.IndexController.createShirt
+POST    /createShirt                controllers.RegisterController.createShirt()
+GET     /adminShirts                controllers.IndexController.adminShirts
+GET     /removeShirt                controllers.RegisterController.removeShirt(id:Long ?= 0)
+POST 	/User						services.AuthRestService.register()
+GET		/adminMessages				controllers.MessageController.adminMessages()
+GET		/rest/shirt				  	services.ShirtRestService.getAllShirt()
+GET		/rest/stamp				  	services.StampRestService.getAllStamp()
+GET		/order/*id			  		services.OrderRestService.getOrderById(id: Long)
+GET		/rest/order/			  	services.OrderRestService.getOrderById(id: Long ?= 0)
+GET		/rest/order/*id				services.OrderRestService.getOrderById(id: Long)
+GET		/rest/order			  		services.OrderRestService.getOrderById(id: Long)
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

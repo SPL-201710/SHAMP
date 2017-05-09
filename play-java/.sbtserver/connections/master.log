@@ -1,0 +1,7 @@
+New log file opened at Mon May 08 22:24:53 COT 2017 by 1851@MacBook-Pro-de-Fredy.local
+Taking next connection to: 49779
+New client attempting to connect on port: 49780-49779
+  Address = /192.168.0.11:49779
+This client on port 49780 has uuid da8792cc-7557-496d-ab68-48d84c3d138d configName play-fork-run humanReadableName Play Fork Run protocolVersion 1 featureTags Vector()
+Connected Clients: play-fork-run-da8792cc-7557-496d-ab68-48d84c3d138d
+Taking next connection to: 49779
