@@ -52,5 +52,9 @@ POST	/responseMessage			controllers.MessageController.responseMessage(id:Long ?=
 GET		/viewMessageUnresponse		controllers.MessageController.viewUnresponsedMessage(id:Long ?= 0)
 GET		/viewMessageResponsed		controllers.MessageController.viewResponsedMessage(id:Long ?= 0)
 GET		/deleteMessage				controllers.MessageController.deleteMessage(id:Long ?= 0)
+GET		/shirtDto					services.ShirtRestService.getAllShirtDto()
+GET		/shirt						services.ShirtRestService.getAll()
+GET		/stampDto					services.StampRestService.getAllStampDto()
+GET		/stamp						services.StampRestService.getAll()
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

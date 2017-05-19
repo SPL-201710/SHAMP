@@ -21,6 +21,11 @@ import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
 
+import dto.CategoryDto;
+import dto.ShirtDto;
+import dto.StampDto;
+import dto.UserDto;
+
 
 public final class StampAdmin
 {
@@ -185,11 +190,51 @@ public final class StampAdmin
     
     public static List<Stamp> getAll()
     {
-        List<Stamp> response = null;
+        List<Stamp> response = new ArrayList<Stamp>();
             response = Stamp.find.where().eq("active",true).findList();
         return response;
     }
     
-    
+    public static List<StampDto> getAllStampDto()
+    {
+        List<StampDto> listStampDto = new ArrayList<StampDto>();
+            
+        List<Stamp> listStamp = new ArrayList<Stamp>();
+		listStamp = Stamp.find.where().eq("active",true).findList();
+        
+            for (Stamp stamp : listStamp) {
+            	StampDto stampDto= new StampDto();
+            	stampDto.setActive(stamp.isActive());
+            	stampDto.setCreationDate(stamp.getCreation_date());
+            	Categories category = stamp.getCategory_id();
+            	CategoryDto categoryDto = new CategoryDto();
+            	categoryDto.setActive(category.isActive());
+            	categoryDto.setCreationDate(category.getCreation_date());
+            	categoryDto.setName(category.getName());
+            	stampDto.setCategory(categoryDto);
+            	stampDto.setId(stamp.getStamp_id());
+            	stampDto.setName(stamp.getName());
+            	stampDto.setStampLargeImagePath(stamp.getStamp_large_image_path());
+            	stampDto.setStampLongDescription(stamp.stamp_long_description);
+            	stampDto.setStampName(stamp.getStamp_name());
+            	stampDto.setStampPrice(Double.toString(stamp.getStamp_price()));
+            	stampDto.setStampShortDescription(stamp.getStamp_short_description());
+            	stampDto.setStampSmallImagePath(stamp.stamp_small_image_path);
+            	
+            	User user = stamp.getUser_id();
+            	UserDto userDto = new UserDto();
+            	userDto.setActive(user.isActive());
+            	userDto.setCreationDate(user.getCreation_date());
+            	userDto.setEmail("");
+            	userDto.setId(user.getUser_id());
+            	userDto.setName(user.getName());
+            	userDto.setSurname(user.getUsername());
+            	userDto.setUsername(user.getUsername());
+            	userDto.setUserType(user.user_type);
+            	stampDto.setUser(userDto);
+            	listStampDto.add(stampDto);
+            }
+        return listStampDto;
+    }
     
 }

@@ -21,6 +21,8 @@ import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
 
+import dto.ShirtDto;
+
 
 public final class ShirtAdmin
 {
@@ -114,9 +116,33 @@ public final class ShirtAdmin
     
     public static List<Shirt> getAll()
     {
-        List<Shirt> response = null;
+    	 List<Shirt> response = new ArrayList<Shirt>();
             response = Shirt.find.where().eq("active",true).findList();
         return response;
+    }
+    
+    public static List<ShirtDto> getAllShirtDto()
+    {
+        List<ShirtDto> listShirtDto = new ArrayList<ShirtDto>();
+            
+        List<Shirt> listShirt = new ArrayList<Shirt>();
+        listShirt = Shirt.find.where().eq("active",true).findList();
+        
+            for (Shirt shirt : listShirt) {
+            	ShirtDto shirtDto= new ShirtDto();
+            	shirtDto.setActive(shirt.isActive());
+            	shirtDto.setCreationDate(shirt.getCreation_date());
+            	shirtDto.setId(shirt.getShirt_id());
+            	shirtDto.setName(shirt.getName());
+            	shirtDto.setShirtColor(shirt.getShirt_color());
+            	shirtDto.setShirtLargeImagePath(shirt.getShirt_large_image_path());
+            	shirtDto.setShirtPrice(Double.toString(shirt.getShirt_price()));
+            	shirtDto.setShirtSex(shirt.getShirt_sex());
+            	shirtDto.setShirtSize(shirt.getShirt_size());
+            	shirtDto.setShirtSmallImagePath(shirt.getShirt_small_image_path());
+            	listShirtDto.add(shirtDto);
+            }
+        return listShirtDto;
     }
     
     

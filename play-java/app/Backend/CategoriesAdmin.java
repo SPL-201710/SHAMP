@@ -21,6 +21,9 @@ import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
+
+import dto.CategoryDto;
+
 import java.util.Random;
 
 public final class CategoriesAdmin{

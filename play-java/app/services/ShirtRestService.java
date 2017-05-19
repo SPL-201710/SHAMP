@@ -25,6 +25,18 @@ public class ShirtRestService extends Controller {
 				 return badRequest(Util.createResponse(ex.getMessage(), false)); 
 			}
 		}	
+	 
+	 public Result getAllShirtDto()
+		{
+			try
+			{
+				return created(Util.createResponse(Json.toJson(ShirtAdmin.getAllShirtDto()), true));
+			}
+			catch(Exception ex)
+			{
+				 return badRequest(Util.createResponse(ex.getMessage(), false)); 
+			}
+		}
 	
 }
 

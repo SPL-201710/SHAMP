@@ -24,7 +24,21 @@ public class StampRestService extends Controller {
 			{
 				 return badRequest(Util.createResponse(ex.getMessage(), false)); 
 			}
-		}	
+		}
+	 
+	 public Result getAllStampDto()
+		{
+			try
+			{
+				return created(Util.createResponse(Json.toJson(StampAdmin.getAllStampDto()), true));
+			}
+			catch(Exception ex)
+			{
+				 return badRequest(Util.createResponse(ex.getMessage(), false)); 
+			}
+		}
+	 
+	 
 	
 }
 
