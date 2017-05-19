@@ -8,9 +8,11 @@ public class Util {
 	
 	public static ObjectNode createResponse(Object response, boolean ok) {
         ObjectNode result = Json.newObject();
+        result.put("isSuccessfull", ok);
         if (response instanceof String)
-            result.put("data", (String) response);
-        else result.put("data", (JsonNode) response);
+            result.put("body", (String) response);
+        else result.put("body", (JsonNode) response);
+
         return result;
     }
 

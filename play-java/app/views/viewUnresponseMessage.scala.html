@@ -1,5 +1,5 @@
 @import models._
-@(messagesUnResponse:List[Message])(messagesResponsed:List[Message])(messageProcess:String)(token:String)(name:String)(options:List[UserOptions])(pageURL:String)
+@(originalMessage:Message)(token:String)(name:String)(options:List[UserOptions])(pageURL:String)
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,7 +11,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SHAMP - Ver Mensajes</title>
+    <title>SHAMP - Ver Mensaje </title>
 
     <!-- Bootstrap Core CSS -->
     <link href="@routes.Assets.versioned("css/bootstrap.min.css")" rel="stylesheet">
@@ -31,16 +31,6 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-    
-    <script>
-function confirmarEliminacion(from, subject, id) {
-    
-    if(confirm("Esta Seguro de Eliminar el mensaje de "+ from +" con asunto"+ subject+"?"))
-    {
-        window.location = "/deleteMessage?id="+id;
-    }
-}
-</script>
 
 </head>
 
@@ -122,71 +112,33 @@ function confirmarEliminacion(from, subject, id) {
 
     <!-- Page Content -->
     <div class="container">
-        <h2>Administracion de Mensajes</h2>
-        <h4>@messageProcess</h4>
-        <div class="row">
-        <h3>Mensajes sin Respuesta</h3>
-        <div class="col-md-9">
-         <div class="table-responsive">
-                            <table class="table table-bordered table-hover table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>Remitente</th>
-                                        <th>Asunto</th>
-                                        <th>Fecha de Recepcion</th>
-                                        <th>Ver Mensaje</th>
-                                        <th>Eliminar Mensaje</th>
-                                    </tr>
-                                </thead>
-                    <tbody>
-        
-            @for(message<-messagesUnResponse){
-            <tr>
-                    <td>@message.getUserFrom().user_mail </td>
-                    <td>@message.message_subject</td>
-                    <td>@message.creation_date</td>
-                    <td><a class="btn btn-info" href="/viewMessageUnresponse?id=@message.message_id">Ver Mensaje</a></td>
-                    <td><a class="btn btn-danger" onclick='confirmarEliminacion("@message.getUserFrom().user_mail", "@message.message_subject",@message.message_id)'>Eliminar Mensaje</a></td>
-                    </tr>
-          
-            }
-            </tbody>
-                     </table>
-                        </div>
-        </div>
 
-        </div>
-        
         <div class="row">
-        <h3>Mensajes Respuesta Enviada</h3>
-        <div class="col-md-9">
-         <div class="table-responsive">
-                            <table class="table table-bordered table-hover table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>Remitente</th>
-                                        <th>Asunto</th>
-                                        <th>Fecha de Recepcion</th>
-                                        <th>Ver Mensaje</th>
-                                        <th>Eliminar Mensaje</th>
-                                    </tr>
-                                </thead>
-                    <tbody>
-        
-            @for(message<-messagesResponsed){
-            <tr>
-                    <td>@message.getUserFrom().user_mail </td>
-                    <td>@message.message_subject</td>
-                    <td>@message.creation_date</td>
-                    <td><a class="btn btn-info" href="/viewMessageResponsed?id=@message.message_id">Ver Mensaje</a></td>
-                    <td><a class="btn btn-danger" onclick='confirmarEliminacion("@message.getUserFrom().user_mail", "@message.message_subject",@message.message_id)'>Eliminar Mensaje</a></td>
-                    </tr>
-          
-            }
-            </tbody>
-                     </table>
-                        </div>
-        </div>
+
+            <div class="col-md-2">
+               
+            </div>
+
+            <div class="col-md-9">
+
+                
+                
+                <div class="thumbnail">
+                    <div class="caption-full">
+                        
+                        <h4>Datos Mensaje Original</h4>
+                        <p><label>Asunto: </label> @originalMessage.message_subject</p>
+                        <p><label>Remitente: </label> @originalMessage.getUserFrom().user_mail</p>
+                        <p><label>Fecha de Recepcion: </label> @originalMessage.creation_date</p>
+                        <p><label>Contenido </labe></p>
+                        <p>@originalMessage.message_content</p>
+                    </div>
+                    <a class="btn btn-success" href="/responseMessage?id=@originalMessage.message_id">Responder Mensaje</a>
+                    
+                </div>
+                
+
+            </div>
 
         </div>
 

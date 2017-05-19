@@ -24,16 +24,6 @@ import com.amazonaws.services.s3.model.S3ObjectSummary;
 
 public final class ShirtAdmin
 {
-
-    
-    public static List<Shirt> getAllShirt()
-    {
-        List<Shirt> response = null;
-        response = Shirt.find.where().eq("active",true).findList();
-        return response;
-    }
-    
- 
     public static String createShirt(Form<CreateShirtForm> createShirtForm, 
     String token,
     long userId,
@@ -119,6 +109,13 @@ public final class ShirtAdmin
         {
             response = ex.getMessage();
         }
+        return response;
+    }
+    
+    public static List<Shirt> getAll()
+    {
+        List<Shirt> response = null;
+            response = Shirt.find.where().eq("active",true).findList();
         return response;
     }
     

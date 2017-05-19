@@ -1,5 +1,6 @@
-
 package services;
+
+import java.util.List;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -9,21 +10,21 @@ import play.libs.Json;
 import play.libs.Json.*;
 import util.Util;
 import models.*;
-import Backend.StampAdmin;
-import dto.CustomerDto;
-import dto.Session;
+import Backend.*;
 
-public class StampRestService extends Controller
-{
-	public Result getAllStamp()
-	{
-		try
+public class StampRestService extends Controller {
+
+	 public Result getAll()
 		{
-			return created(Util.createResponse(Json.toJson(StampAdmin.getAllStamp()), true));
-		}
-		catch(Exception ex)
-		{
-			 return badRequest(Util.createResponse(ex.getMessage(), false)); 
-		}
-	}	
+			try
+			{
+				return created(Util.createResponse(Json.toJson(StampAdmin.getAll()), true));
+			}
+			catch(Exception ex)
+			{
+				 return badRequest(Util.createResponse(ex.getMessage(), false)); 
+			}
+		}	
+	
 }
+

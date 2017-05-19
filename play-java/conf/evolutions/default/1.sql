@@ -32,10 +32,12 @@ create table stamp_categories (
 create table messages (
   message_id                    bigint auto_increment not null,
   message_status                integer not null,
-  user_id                       bigint,
+  message_from                  bigint,
+  message_to                    bigint,
   message_subject               varchar(255),
   message_content               varchar(255),
   creation_date                 datetime(6) not null,
+  parent_message                bigint,
   constraint pk_messages primary key (message_id)
 );
 
@@ -98,14 +100,14 @@ create table stamps (
   constraint pk_stamps primary key (stamp_id)
 );
 
-create table stamp_raitings (
-  raiting_id                    bigint auto_increment not null,
+create table stamp_ratings (
+  rating_id                     bigint auto_increment not null,
   stamp_id                      bigint,
-  raiting_status                integer not null,
-  stamp_raiting                 integer not null,
+  rating_status                 integer not null,
+  stamp_rating                  integer not null,
   stamp_comments                integer not null,
   creation_date                 datetime(6) not null,
-  constraint pk_stamp_raitings primary key (raiting_id)
+  constraint pk_stamp_ratings primary key (rating_id)
 );
 
 create table stamp_shirt (
@@ -163,9 +165,6 @@ create table user_options (
 alter table user_profile add constraint fk_user_profile_user_id foreign key (user_id) references users (user_id) on delete restrict on update restrict;
 create index ix_user_profile_user_id on user_profile (user_id);
 
-alter table messages add constraint fk_messages_user_id foreign key (user_id) references users (user_id) on delete restrict on update restrict;
-create index ix_messages_user_id on messages (user_id);
-
 alter table user_orders add constraint fk_user_orders_user_id foreign key (user_id) references users (user_id) on delete restrict on update restrict;
 create index ix_user_orders_user_id on user_orders (user_id);
 
@@ -184,8 +183,8 @@ create index ix_stamps_user_id on stamps (user_id);
 alter table stamps add constraint fk_stamps_category_id foreign key (category_id) references stamp_categories (category_id) on delete restrict on update restrict;
 create index ix_stamps_category_id on stamps (category_id);
 
-alter table stamp_raitings add constraint fk_stamp_raitings_stamp_id foreign key (stamp_id) references stamps (stamp_id) on delete restrict on update restrict;
-create index ix_stamp_raitings_stamp_id on stamp_raitings (stamp_id);
+alter table stamp_ratings add constraint fk_stamp_ratings_stamp_id foreign key (stamp_id) references stamps (stamp_id) on delete restrict on update restrict;
+create index ix_stamp_ratings_stamp_id on stamp_ratings (stamp_id);
 
 alter table stamp_shirt add constraint fk_stamp_shirt_shirt_id foreign key (shirt_id) references shirt (shirt_id) on delete restrict on update restrict;
 create index ix_stamp_shirt_shirt_id on stamp_shirt (shirt_id);
@@ -201,9 +200,6 @@ create index ix_user_billing_user_id on user_billing (user_id);
 
 alter table user_profile drop foreign key fk_user_profile_user_id;
 drop index ix_user_profile_user_id on user_profile;
-
-alter table messages drop foreign key fk_messages_user_id;
-drop index ix_messages_user_id on messages;
 
 alter table user_orders drop foreign key fk_user_orders_user_id;
 drop index ix_user_orders_user_id on user_orders;
@@ -223,8 +219,8 @@ drop index ix_stamps_user_id on stamps;
 alter table stamps drop foreign key fk_stamps_category_id;
 drop index ix_stamps_category_id on stamps;
 
-alter table stamp_raitings drop foreign key fk_stamp_raitings_stamp_id;
-drop index ix_stamp_raitings_stamp_id on stamp_raitings;
+alter table stamp_ratings drop foreign key fk_stamp_ratings_stamp_id;
+drop index ix_stamp_ratings_stamp_id on stamp_ratings;
 
 alter table stamp_shirt drop foreign key fk_stamp_shirt_shirt_id;
 drop index ix_stamp_shirt_shirt_id on stamp_shirt;
@@ -249,7 +245,7 @@ drop table if exists shirt;
 
 drop table if exists stamps;
 
-drop table if exists stamp_raitings;
+drop table if exists stamp_ratings;
 
 drop table if exists stamp_shirt;
 

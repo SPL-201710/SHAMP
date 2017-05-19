@@ -1,4 +1,5 @@
-New log file opened at Mon May 08 22:23:08 COT 2017 by 1789@MacBook-Pro-de-Fredy.local
+New log file opened at Thu May 18 23:16:06 COT 2017 by 7377@MacBook-Pro-de-Fredy.local
+== resolving dependencies com.amazonaws#aws-java-sdk-directory;1.11.111->com.amazonaws#jmespath-java;1.11.111 [compile->compile(*)]
 == resolving dependencies com.amazonaws#aws-java-sdk;1.11.111->com.amazonaws#aws-java-sdk-directory;1.11.111 [compile->runtime(*)]
 == resolving dependencies com.amazonaws#aws-java-sdk;1.11.111->com.amazonaws#aws-java-sdk-directory;1.11.111 [compile->compile]
 == resolving dependencies com.amazonaws#aws-java-sdk-directory;1.11.111->com.amazonaws#aws-java-sdk-core;1.11.111 [runtime->runtime(*)]
@@ -14238,7 +14239,7 @@ all callers are evicted for com.typesafe#ssl-config-akka_2.11;0.1.3: evicting to
 	[NOT REQUIRED] com.typesafe.akka#akka-actor_2.11;2.3.8!akka-actor_2.11.jar
 	[NOT REQUIRED] com.typesafe.akka#akka-testkit_2.11;2.3.8!akka-testkit_2.11.jar
 	[NOT REQUIRED] com.typesafe#config;1.2.1!config.jar(bundle)
-:: resolution report :: resolve 17070ms :: artifacts dl 649ms
+:: resolution report :: resolve 38879ms :: artifacts dl 1510ms
 	report for play-java#play-java_2.11;1.0-SNAPSHOT compile produced in /Users/fredygonzalocaptuayonovoa/projects/uniandes/201710_MISO_4204/shamp/play-java/SHAMP/play-java/target/resolution-cache/reports/play-java-play-java_2.11-compile.xml
 	report for play-java#play-java_2.11;1.0-SNAPSHOT runtime produced in /Users/fredygonzalocaptuayonovoa/projects/uniandes/201710_MISO_4204/shamp/play-java/SHAMP/play-java/target/resolution-cache/reports/play-java-play-java_2.11-runtime.xml
 	report for play-java#play-java_2.11;1.0-SNAPSHOT test produced in /Users/fredygonzalocaptuayonovoa/projects/uniandes/201710_MISO_4204/shamp/play-java/SHAMP/play-java/target/resolution-cache/reports/play-java-play-java_2.11-test.xml
@@ -14253,7 +14254,7 @@ all callers are evicted for com.typesafe#ssl-config-akka_2.11;0.1.3: evicting to
 	report for play-java#play-java_2.11;1.0-SNAPSHOT pom produced in /Users/fredygonzalocaptuayonovoa/projects/uniandes/201710_MISO_4204/shamp/play-java/SHAMP/play-java/target/resolution-cache/reports/play-java-play-java_2.11-pom.xml
 	report for play-java#play-java_2.11;1.0-SNAPSHOT scala-tool produced in /Users/fredygonzalocaptuayonovoa/projects/uniandes/201710_MISO_4204/shamp/play-java/SHAMP/play-java/target/resolution-cache/reports/play-java-play-java_2.11-scala-tool.xml
 	report for play-java#play-java_2.11;1.0-SNAPSHOT fork-run produced in /Users/fredygonzalocaptuayonovoa/projects/uniandes/201710_MISO_4204/shamp/play-java/SHAMP/play-java/target/resolution-cache/reports/play-java-play-java_2.11-fork-run.xml
-	resolve done (17070ms resolve - 649ms download)
+	resolve done (38879ms resolve - 1510ms download)
 Read from stdout: Done updating.
 Done updating.
 Read from stdout: There may be incompatibilities among your library dependencies.
@@ -14264,13 +14265,7 @@ Read from stdout: 	* com.typesafe.play:play-json_2.11:(2.5.2, 2.3.4) -> 2.5.10
 	* com.typesafe.play:play-json_2.11:(2.5.2, 2.3.4) -> 2.5.10
 Read from stdout: Run 'evicted' to see detailed eviction warnings
 Run 'evicted' to see detailed eviction warnings
-Total time: 20 s, completed 8/05/2017 10:23:16 PM
-> server-post-command-cleanup
-> server-handle-next-server-request
-> myProject/playForkNotifyStart http://localhost:9000
-Evaluating tasks: *:playForkNotifyStart
-Running task... Cancel: sbt.server.ServerTaskCancellation@49eabf4b, check cycles: false
-Total time: 0 s, completed 8/05/2017 10:23:30 PM
+Total time: 54 s, completed 18/05/2017 11:16:27 PM
 > server-post-command-cleanup
 > server-handle-next-server-request
 Done executing sbt server engine, result Right(Exit(0))
@@ -14279,4 +14274,4 @@ Waiting for socket thread
 Waiting for request processor thread
 Waiting for command engine result
 Returning control to sbt launcher with result Exit(0)
-Closing the 1789@MacBook-Pro-de-Fredy.local logs at Mon May 08 22:24:29 COT 2017, goodbye.
+Closing the 7377@MacBook-Pro-de-Fredy.local logs at Thu May 18 23:16:29 COT 2017, goodbye.

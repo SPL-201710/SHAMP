@@ -24,16 +24,6 @@ import com.amazonaws.services.s3.model.S3ObjectSummary;
 
 public final class StampAdmin
 {
-	
-    
-    public static List<Stamp> getAllStamp()
-    {
-        List<Stamp> response = null;
-        response = Stamp.find.where().eq("active",true).findList();
-        return response;
-    }
-    
-    
     public static String createStamp(Form<CreateStampForm> createStampForm, 
     String token,
     long userId,
@@ -193,6 +183,12 @@ public final class StampAdmin
         return response;
     }
     
+    public static List<Stamp> getAll()
+    {
+        List<Stamp> response = null;
+            response = Stamp.find.where().eq("active",true).findList();
+        return response;
+    }
     
     
     

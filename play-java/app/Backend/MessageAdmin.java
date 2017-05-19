@@ -29,7 +29,7 @@ public final class MessageAdmin
 	{
 		List<Message> messages = null;
 		
-		messages = Message.find.where().eq("message_to", user_to).eq("message_status", 1).findList();
+		messages = Message.find.where().eq("message_to", user_to.user_id).eq("message_status", 1).findList();
 			
 		return messages;
 	}
@@ -38,7 +38,7 @@ public final class MessageAdmin
 	{
 		List<Message> messages = null;
 		
-		messages = Message.find.where().eq("message_to", user_to).eq("message_status", 2).findList();
+		messages = Message.find.where().eq("message_from", user_to.user_id).eq("message_status", 1).findList();
 		
 		return messages;
 	}
@@ -50,21 +50,33 @@ public final class MessageAdmin
 		
 		Message tempMessage = new Message();
 		tempMessage.message_status = 1;
-		tempMessage.message_from = tempUserFrom;
-		tempMessage.message_to = tempUserTo;
+		tempMessage.message_from = tempUserFrom.user_id;
+		tempMessage.message_to = tempUserTo.user_id;
 		tempMessage.creation_date = new Date();
 		tempMessage.message_content = content;
 		tempMessage.message_subject = subject;
+		tempMessage.parent_message = -1;
 		tempMessage.save();
+	}
+	
+	
+	
+	public static Message getMessage(long id)
+	{
+		Message tempMessage = Message.find.where().eq("message_id", id).findUnique();
+		return tempMessage;
 	}
 	
 	public static void deleteMessage(long message_id)
 	{
-		Message tempMessage = Message.find.where().eq("message_id", message_id).findUnique();
-		tempMessage.message_status = 3;
-		tempMessage.update();
+		Message tempMessage = MessageAdmin.getMessage(message_id);
+		if(tempMessage != null)
+		{
+			tempMessage.message_status = 3;
+			tempMessage.update();
+		}
+		
 	}
-	
 	
 	public static void sendResponse(long message_id, String content)
 	{
@@ -79,7 +91,7 @@ public final class MessageAdmin
 		tempMessage.creation_date = new Date();
 		tempMessage.message_content = content;
 		tempMessage.message_subject = "Re:" + tempMessageOrginal.message_subject;
-		tempMessage.parent_message = tempMessageOrginal;
+		tempMessage.parent_message = tempMessageOrginal.message_id;
 		tempMessage.save();
 		
 		tempMessageOrginal.message_status = 2;

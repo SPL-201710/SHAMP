@@ -1,5 +1,6 @@
+@import helper._
 @import models._
-@(messagesUnResponse:List[Message])(messagesResponsed:List[Message])(messageProcess:String)(token:String)(name:String)(options:List[UserOptions])(pageURL:String)
+@(messageId: Long)(responseMessageForm: Form[forms.ResponseMessageForm])(message: String)(token:String)(name:String)(options:List[UserOptions])(pageURL:String)
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,19 +12,19 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SHAMP - Ver Mensajes</title>
+    <title>Shamp - Crea tu Camiseta</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="@routes.Assets.versioned("css/bootstrap.min.css")" rel="stylesheet">
-    
-
     <!-- Custom CSS -->
-    <link href="@routes.Assets.versioned("css/shop-item.css")" rel="stylesheet">
+    <link href="@routes.Assets.versioned("css/modern-business.css")" rel="stylesheet">
     
     <link href="@routes.Assets.versioned("css/sb-admin.css")" rel="stylesheet">
 
     <!-- Morris Charts CSS -->
     <link href="@routes.Assets.versioned("css/plugins/morris.css")" rel="stylesheet">
+    <!-- Custom Fonts -->
+    <link href="@routes.Assets.versioned("font-awesome/css/font-awesome.min.css")" rel="stylesheet" type="text/css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -31,21 +32,11 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-    
-    <script>
-function confirmarEliminacion(from, subject, id) {
-    
-    if(confirm("Esta Seguro de Eliminar el mensaje de "+ from +" con asunto"+ subject+"?"))
-    {
-        window.location = "/deleteMessage?id="+id;
-    }
-}
-</script>
 
 </head>
 
 <body style="background-color:white;">
-<div id="wrapper">
+    <div id="wrapper">
     <!-- Navigation -->
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container">
@@ -79,6 +70,7 @@ function confirmarEliminacion(from, subject, id) {
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Registro <b class="caret"></b></a>
                         <ul class="dropdown-menu">
+                            
                             <li>
                                 <a href="registerArtist">Registro Artistas</a>
                             </li>
@@ -117,104 +109,100 @@ function confirmarEliminacion(from, subject, id) {
                     }
                 </ul>
             </div>
+        
+        
+        <!-- /.container -->
+    </nav>
+        
         <!-- /.container -->
     </nav>
 
     <!-- Page Content -->
     <div class="container">
-        <h2>Administracion de Mensajes</h2>
-        <h4>@messageProcess</h4>
-        <div class="row">
-        <h3>Mensajes sin Respuesta</h3>
-        <div class="col-md-9">
-         <div class="table-responsive">
-                            <table class="table table-bordered table-hover table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>Remitente</th>
-                                        <th>Asunto</th>
-                                        <th>Fecha de Recepcion</th>
-                                        <th>Ver Mensaje</th>
-                                        <th>Eliminar Mensaje</th>
-                                    </tr>
-                                </thead>
-                    <tbody>
-        
-            @for(message<-messagesUnResponse){
-            <tr>
-                    <td>@message.getUserFrom().user_mail </td>
-                    <td>@message.message_subject</td>
-                    <td>@message.creation_date</td>
-                    <td><a class="btn btn-info" href="/viewMessageUnresponse?id=@message.message_id">Ver Mensaje</a></td>
-                    <td><a class="btn btn-danger" onclick='confirmarEliminacion("@message.getUserFrom().user_mail", "@message.message_subject",@message.message_id)'>Eliminar Mensaje</a></td>
-                    </tr>
-          
-            }
-            </tbody>
-                     </table>
-                        </div>
-        </div>
 
-        </div>
-        
-        <div class="row">
-        <h3>Mensajes Respuesta Enviada</h3>
-        <div class="col-md-9">
-         <div class="table-responsive">
-                            <table class="table table-bordered table-hover table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>Remitente</th>
-                                        <th>Asunto</th>
-                                        <th>Fecha de Recepcion</th>
-                                        <th>Ver Mensaje</th>
-                                        <th>Eliminar Mensaje</th>
-                                    </tr>
-                                </thead>
-                    <tbody>
-        
-            @for(message<-messagesResponsed){
-            <tr>
-                    <td>@message.getUserFrom().user_mail </td>
-                    <td>@message.message_subject</td>
-                    <td>@message.creation_date</td>
-                    <td><a class="btn btn-info" href="/viewMessageResponsed?id=@message.message_id">Ver Mensaje</a></td>
-                    <td><a class="btn btn-danger" onclick='confirmarEliminacion("@message.getUserFrom().user_mail", "@message.message_subject",@message.message_id)'>Eliminar Mensaje</a></td>
-                    </tr>
-          
-            }
-            </tbody>
-                     </table>
-                        </div>
-        </div>
-
-        </div>
-
-    </div>
-    <!-- /.container -->
-
-    <div class="container">
-
-        <hr>
-
-        <!-- Footer -->
-        <footer>
-            <div class="row">
-                <div class="col-lg-12">
-                    <p>Copyright &copy; SIA 2017</p>
+        <div class="container-fluid">
+    <section class="container">
+		<div class="container-page">
+        @form(action=routes.MessageController.responseMessage(messageId)){
+			<div class="col-md-6">
+				<h3 class="dark-grey">Responder Mensaje</h3>
+				
+				
+				<div class="form-group col-lg-6">
+                <label>Para</label>
+                @inputText(responseMessageForm("message_to"),
+                '_showConstraints->false,
+                '_label -> Nil,
+                'placeholder -> "Para",
+                'autocomplete ->"off",
+                'readonly -> "readonly",
+                'maxlength->"20",
+                'class->"form-control"
+                )
                 </div>
-            </div>
-        </footer>
-
-    </div>
-     </div>
+				
+				<div class="form-group col-lg-6">
+				<label>De</label>
+                @inputText(responseMessageForm("message_from"),
+                '_showConstraints->false,
+                '_label -> Nil,
+                'placeholder -> "De",
+                'autocomplete ->"off",
+                'readonly -> "readonly",
+                'maxlength->"20",
+                'class->"form-control"
+                )
+                </div>
+                
+                <div class="form-group col-lg-6">
+                <label>Asunto</label>
+                @inputText(responseMessageForm("message_subject"),
+                '_showConstraints->false,
+                '_label -> Nil,
+                'placeholder -> "Asunto",
+                'autocomplete ->"off",
+                'readonly -> "readonly",
+                'maxlength->"20",
+                'class->"form-control"
+                )
+                </div>
+                
+                
+                <div class="form-group col-lg-6">
+				<label>Mensaje</label>
+				@textarea(responseMessageForm("message_content"),
+                '_showConstraints->false,
+                '_label -> Nil,
+                'autocomplete ->"off",
+                'class->"form-control"
+                )
+                </div>
+                
+                <div class="form-group col-lg-6">
+			    <button type="submit" class="btn btn-primary">Responder Mensaje</button>
+			    </div>
+			    @if(message!= null){
+				    <label>@message</label>
+				}
+			</div>
+			<div><h3 class="dark-grey"></h3></div>
+			}
+		</div>
+	</section>
+</div>
+</div>
     <!-- /.container -->
 
     <!-- jQuery -->
     <script src="@routes.Assets.versioned("js/jquery.js")"></script>
+	
 
     <!-- Bootstrap Core JavaScript -->
     <script src="@routes.Assets.versioned("js/bootstrap.min.js")"></script>
+    
+     <script src="@routes.Assets.versioned("js/plugins/morris/raphael.min.js")"></script>
+    <script src="@routes.Assets.versioned("js/plugins/morris/morris.min.js")"></script>
+    <script src="@routes.Assets.versioned("js/plugins/morris/morris-data.js")"></script>
 
 </body>
 

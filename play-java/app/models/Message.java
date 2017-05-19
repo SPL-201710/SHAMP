@@ -22,13 +22,13 @@ public class Message extends Model {
 	 @Column(nullable=false)
 	 public int message_status;
 	 
-	 @ManyToOne
-	 @Column(name="message_from")
-	 public User message_from;
 	 
-	 @ManyToOne
+	 @Column(name="message_from")
+	 public long message_from;
+	 
+	 
 	 @Column(name="message_to")
-	 public User message_to;
+	 public long message_to;
 	 
 	 @Column(name="message_subject")
 	 public String message_subject;
@@ -40,9 +40,19 @@ public class Message extends Model {
 	 @Column(nullable=false)
 	 public Date creation_date;
 	 
-	 public Message parent_message;
+	 public long parent_message;
 	 
 	 public static Finder<Long,Message> find = new Finder<Long,Message>(Long.class, Message.class);
+	 
+	 public User getUserTo()
+	 {
+		 return User.find.where().eq("user_id", message_to).findUnique();
+	 }
+	 
+	 public User getUserFrom()
+	 {
+		 return User.find.where().eq("user_id", message_from).findUnique();
+	 }
 	 
 	 
 

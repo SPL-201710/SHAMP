@@ -1,5 +1,5 @@
-New log file opened at Mon May 08 22:24:48 COT 2017 by 1851@MacBook-Pro-de-Fredy.local
-jvm 1851@MacBook-Pro-de-Fredy.local
+New log file opened at Thu May 18 23:16:51 COT 2017 by 7499@MacBook-Pro-de-Fredy.local
+jvm 7499@MacBook-Pro-de-Fredy.local
 jvm vmName=Java HotSpot(TM) 64-Bit Server VM vmVendor=Oracle Corporation vmVersion=25.65-b01
 jvm specName=Java Virtual Machine Specification specVendor=Oracle Corporation specVersion=1.8
 jvm arguments: [-Xms256m, -Xmx1024m, -XX:MetaspaceSize=64m, -XX:MaxMetaspaceSize=256m]
@@ -27,7 +27,7 @@ sorting: ns: List(sbt.plugins.CorePlugin, sbt.plugins.IvyPlugin, sbt.plugins.Jvm
   :: sorted deduced result: List(sbt.plugins.CorePlugin, sbt.plugins.IvyPlugin, sbt.plugins.JvmPlugin, sbt.plugins.JUnitXmlReportPlugin)
 [Loading] Done in /Users/fredygonzalocaptuayonovoa/projects/uniandes/201710_MISO_4204/shamp/play-java/SHAMP/play-java/project, returning: (play-java-build)
 Loading project definition from /Users/fredygonzalocaptuayonovoa/projects/uniandes/201710_MISO_4204/shamp/play-java/SHAMP/play-java/project
-Running task... Cancel: sbt.TaskCancellationStrategy$Null$@30c901c2, check cycles: false
+Running task... Cancel: sbt.TaskCancellationStrategy$Null$@2ad5d481, check cycles: false
 
 Initial source changes: 
 	removed:Set()
