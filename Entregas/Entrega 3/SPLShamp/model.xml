@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+	<featureModel>
+		<properties/>
+		<struct>
+			<and abstract="true" mandatory="true" name="Estampate">
+				<and mandatory="true" name="Catalog">
+					<and mandatory="true" name="Products">
+						<feature mandatory="true" name="SearchProducts"/>
+						<feature name="AdvancedSearch"/>
+						<feature name="RateProducts"/>
+					</and>
+					<or mandatory="true" name="View">
+						<feature mandatory="true" name="Gallery"/>
+						<feature mandatory="true" name="List"/>
+					</or>
+				</and>
+				<feature mandatory="true" name="ShoppingCart"/>
+				<and mandatory="true" name="ProductAdmin">
+					<feature mandatory="true" name="Size"/>
+					<feature mandatory="true" name="StampDesign"/>
+					<feature name="Text"/>
+					<feature name="Color"/>
+					<feature name="StampEffect"/>
+					<feature name="Notification"/>
+				</and>
+				<and mandatory="true" name="Pay">
+					<feature mandatory="true" name="CreditCard"/>
+					<feature name="ShareOnSocialNetwork"/>
+				</and>
+				<and mandatory="true" name="User">
+					<alt mandatory="true" name="Authentication">
+						<feature mandatory="true" name="Database"/>
+						<feature mandatory="true" name="AuthTwitter"/>
+						<feature mandatory="true" name="AuthFacebook"/>
+					</alt>
+					<and mandatory="true" name="UpdateProfile">
+						<feature name="ChangePassword"/>
+						<feature name="ChangeAddress"/>
+					</and>
+					<feature mandatory="true" name="CreateAccount"/>
+				</and>
+				<and name="Reports">
+					<and name="Rating">
+						<feature mandatory="true" name="Design"/>
+						<feature name="DesignByArtist"/>
+					</and>
+					<and name="Sales">
+						<feature name="ByArtist"/>
+						<feature mandatory="true" name="ByPeriod"/>
+					</and>
+				</and>
+				<alt name="SocialNetwork">
+					<feature mandatory="true" name="Facebook"/>
+					<feature mandatory="true" name="Twitter"/>
+				</alt>
+			</and>
+		</struct>
+		<constraints/>
+		<calculations Auto="true" Constraints="true" Features="true" Redundant="true" Tautology="true"/>
+		<comments/>
+		<featureOrder userDefined="false"/>
+	</featureModel>

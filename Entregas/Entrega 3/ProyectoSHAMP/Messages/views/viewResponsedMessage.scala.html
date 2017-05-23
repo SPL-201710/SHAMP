@@ -1,0 +1,185 @@
+@import models._
+@(originalMessage:Message)(responseMessage:Message)(token:String)(name:String)(options:List[UserOptions])(pageURL:String)
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>SHAMP - Ver Mensaje </title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="@routes.Assets.versioned("css/bootstrap.min.css")" rel="stylesheet">
+    
+
+    <!-- Custom CSS -->
+    <link href="@routes.Assets.versioned("css/shop-item.css")" rel="stylesheet">
+    
+    <link href="@routes.Assets.versioned("css/sb-admin.css")" rel="stylesheet">
+
+    <!-- Morris Charts CSS -->
+    <link href="@routes.Assets.versioned("css/plugins/morris.css")" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body style="background-color:white;">
+<div id="wrapper">
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">SHAMP</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    
+                    @token
+                    @if(token != null){
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">@name <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            @for(option<-options){
+                            <li>
+                                <a href="@option.user_option_url">@option.user_option_name</a>
+                            </li>
+                            }
+                        </ul>
+                    </li>
+                    } else {
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Registro <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="registerArtist">Registro Artistas</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="login">Ingreso</a>
+                    </li>
+                    }
+                    
+                    
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+        
+                <ul class="nav navbar-nav side-nav">
+                
+                @token
+                    @if(token != null){
+                            @for(option<-options) {
+                                @if(option.user_option_url == pageURL){
+                                    <li class="active">
+                                }else{
+                                <li>
+                                }
+                            <a href="@option.user_option_url"><i class="fa fa-fw fa-edit"></i> @option.user_option_name</a>
+                            </li>
+                            }
+                        </ul>
+                    </li>
+                    }
+                </ul>
+            </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-md-2">
+               
+            </div>
+
+            <div class="col-md-9">
+
+                
+                
+                <div class="thumbnail">
+                    <div class="caption-full">
+                        
+                        <h4>Datos Mensaje Original</h4>
+                        <p><label>Asunto: </label> @originalMessage.message_subject</p>
+                        <p><label>Remitente: </label> @originalMessage.getUserFrom().user_mail</p>
+                        <p><label>Fecha de Recepcion: </label> @originalMessage.creation_date</p>
+                        <p><label>Contenido </labe></p>
+                        <p>@originalMessage.message_content</p>
+                    </div>
+                    
+                </div>
+                
+                <div class="thumbnail">
+                    <div class="caption-full">
+                        
+                        <h4>Datos Mensaje Respuesta</h4>
+                        <p><label>Asunto: </label> @responseMessage.message_subject</p>
+                        <p><label>Remitente: </label> @responseMessage.getUserFrom().user_mail</p>
+                        <p><label>Fecha de Respuesta: </label> @responseMessage.creation_date</p>
+                        <p><label>Contenido </labe></p>
+                        <p>@responseMessage.message_content</p>
+                    </div>
+                    
+                </div>
+                
+
+            </div>
+
+        </div>
+
+    </div>
+    <!-- /.container -->
+
+    <div class="container">
+
+        <hr>
+
+        <!-- Footer -->
+        <footer>
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>Copyright &copy; SIA 2017</p>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+     </div>
+    <!-- /.container -->
+
+    <!-- jQuery -->
+    <script src="@routes.Assets.versioned("js/jquery.js")"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="@routes.Assets.versioned("js/bootstrap.min.js")"></script>
+
+</body>
+
+</html>

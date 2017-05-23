@@ -1,0 +1,78 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# An example controller showing a sample home page
+GET     /                           controllers.IndexController.index
+GET     /login                      controllers.IndexController.login
+GET     /registerUser               controllers.IndexController.registerUser
+GET     /registerArtist             controllers.IndexController.registerArtist
+POST    /registerUser               controllers.RegisterController.registerUser()
+POST    /registerArtist             controllers.RegisterController.registerArtist()
+POST    /loginInUser                controllers.RegisterController.loginInUser()
+GET     /logout                     controllers.RegisterController.logOutUser()
+GET     /updateUser                 controllers.IndexController.updateUser
+POST    /updateUser                 controllers.RegisterController.updateUser()
+GET     /changePassword             controllers.IndexController.changePassword
+POST    /changePassword             controllers.RegisterController.changePassword()
+GET     /createStamp                controllers.IndexController.createStamp
+POST    /createStamp                controllers.RegisterController.createStamp()
+GET		/createPrivateStamp			controllers.IndexController.createPrivateStamp()
+POST	/createPrivateStamp			controllers.RegisterController.createPrivateStamp()
+GET     /catalog                    controllers.IndexController.showCatalog(id:Long ?= 0)
+GET     /viewStamp                  controllers.IndexController.viewStamp(id:Long ?= 0)
+GET		/viewStampRating			controllers.IndexController.viewStampRating(id: Long)
+GET     /addStamp                   controllers.IndexController.addStamp(id:Long ?= 0)
+POST    /addStamp                   controllers.RegisterController.addStamp()
+GET     /viewShoppingCart           controllers.IndexController.viewShoppingCart()
+GET     /removeShirtStamp           controllers.RegisterController.removeShirtStamp(id:Long ?= 0)
+GET     /cancelOrder                controllers.RegisterController.cancelOrder()
+GET     /editShirt                  controllers.IndexController.editShirt(id:Long ?= 0)
+POST    /editShirt                  controllers.RegisterController.editShirt()
+GET     /viewOrders                 controllers.IndexController.viewOrders
+GET     /checkOut                   controllers.RegisterController.checkOut()
+GET     /updateProfile              controllers.IndexController.updateProfile
+POST    /updateProfile              controllers.RegisterController.updateProfile()
+GET     /removeStamp                controllers.RegisterController.removeStamp(id:Long ?= 0)
+GET     /updateStamp                controllers.IndexController.updateStamp(id:Long ?= 0)
+POST    /updateStamp                controllers.RegisterController.updateStamp()
+GET     /adminUsers                 controllers.IndexController.adminUsers
+GET     /disableUser                controllers.RegisterController.disableUser(id:Long ?= 0)
+GET     /adminArtists               controllers.IndexController.adminArtists
+GET     /disableArtist              controllers.RegisterController.disableArtist(id:Long ?= 0)
+GET     /createCategory             controllers.IndexController.createCategory
+POST    /createCategory             controllers.RegisterController.createCategory()
+GET     /adminCategories            controllers.IndexController.adminCategories
+GET     /removeCategory             controllers.RegisterController.removeCategory(id:Long ?= 0)
+GET     /createShirt                controllers.IndexController.createShirt
+POST    /createShirt                controllers.RegisterController.createShirt()
+GET     /adminShirts                controllers.IndexController.adminShirts
+GET     /removeShirt                controllers.RegisterController.removeShirt(id:Long ?= 0)
+POST	/Order						services.OrderController.registerOrder()
+POST	/Order/User/*id				services.OrderController.getOrderByUserID(id: Long)
+GET		/Order/User					services.OrderController.getOrderResponseByUserID()
+POST 	/User						services.AuthRestService.register()
+POST 	/User/Token					services.AuthRestService.login()
+PATCH	/User						services.AuthRestService.changePassword()
+GET		/Stamps						services.StampController.getStamps()
+GET		/Stamp/*id					services.StampController.getStamp(id: Long)
+GET		/PrivateStamps				services.StampController.getPrivateStamps()
+GET		/PrivateStamp/*id			services.StampController.getPrivateStamp(id: Long)
+POST	/Rating						services.StampController.createRating()
+GET		/Shirts						services.ShirtController.getShirts()
+GET		/Shirt/*id					services.ShirtController.getShirt(id: Long)
+GET		/Messages					services.MessageController.getMessages()
+POST	/Message					services.MessageController.responseMessages()
+DELETE	/Message/*id				services.MessageController.deleteMessage(id: Long)							
+GET		/Features					services.FeatureController.getActiveFeatures()
+POST	/Rating						services.StampController.createRating()
+GET		/adminMessages				controllers.MessageController.adminMessages()
+GET		/responseMessage			controllers.MessageController.viewResponseMessage(id:Long ?=0)
+POST	/responseMessage			controllers.MessageController.responseMessage(id:Long ?= 0)
+GET		/viewMessageUnresponse		controllers.MessageController.viewUnresponsedMessage(id:Long ?= 0)
+GET		/viewMessageResponsed		controllers.MessageController.viewResponsedMessage(id:Long ?= 0)
+GET		/deleteMessage				controllers.MessageController.deleteMessage(id:Long ?= 0)
+GET		/createReport				controllers.ReportsController.viewCreateReport()
+POST	/createReport				controllers.ReportsController.createReport()
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

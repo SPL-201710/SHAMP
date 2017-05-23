@@ -1,0 +1,13 @@
+New log file opened at Mon May 22 21:58:24 COT 2017 by 25182@davids-mbp-2
+Taking next connection to: 57675
+New client attempting to connect on port: 57676-57675
+  Address = /192.168.0.12:57675
+This client on port 57676 has uuid b6b3868b-985e-4c65-beb8-d559a8d629b4 configName play-fork-run humanReadableName Play Fork Run protocolVersion 1 featureTags Vector()
+Connected Clients: play-fork-run-b6b3868b-985e-4c65-beb8-d559a8d629b4
+Taking next connection to: 57675
+Checking to see if clients are empty...
+No non-daemon clients connected after 3 min. Shutting down.
+Server socket thread exiting.
+0 clients open, will close them...
+All client sockets have been closed.
+Closing the 25182@davids-mbp-2 logs at Mon May 22 22:01:24 COT 2017, goodbye.
